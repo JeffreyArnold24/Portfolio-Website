@@ -2,8 +2,38 @@
 
 import styles from "./welcome_page_stylesheet.css";
 import Toolbar from "@/components/top_toolbar";
+import handleSubmit from "@/components/sign-in_component";
+import { useState } from "react";
 
 export default function Home() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    console.log("Reached 1")
+    e.preventDefault();
+    const response = await fetch("http://localhost:8080/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+
+    const data = await response.json();
+    console.log("Reached 2")
+    if (response.ok) {
+      // If login successful, mark the user as authenticated
+      setIsAuthenticated(true);
+    } else {
+      // Display an error message if login fails
+      setErrorMessage(data.message || "Login failed. Please try again.");
+    }
+    return (<p></p>);
+  }
 
   return (
     <div className="main-container">
@@ -34,12 +64,12 @@ export default function Home() {
 
         {/* Sign-in Section on the right */}
         <div className="sign-in-section">
-          <div className="sing-in-title">
+          <div className="sign-in-title">
             <h2>Sign In</h2>
           </div>
-          <form>
-            <input type="username" placeholder="Username" />
-            <input type="password" placeholder="Password" />
+          <form onSubmit={handleSubmit}>
+            <input type="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
+            <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
             <button type="submit">Sign In</button>
           </form>
         </div>

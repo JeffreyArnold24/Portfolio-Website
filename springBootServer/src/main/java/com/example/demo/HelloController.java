@@ -8,6 +8,7 @@ public class HelloController {
     
     @GetMapping("/login")
     public String sayHello() {
+        System.out.print("Request Received");
         return "Hello, World!";
     }
 }
