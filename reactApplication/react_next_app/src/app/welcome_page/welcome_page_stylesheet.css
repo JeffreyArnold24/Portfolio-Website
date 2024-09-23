@@ -1,0 +1,96 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .title-section {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: x-large;
+  }
+
+  .secondary-section {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 900px;
+    align-self: center;
+  }
+
+  .description-section {
+    flex: 1;
+    background-color: rgba(211, 211, 211, 0.61);
+    padding: 20px;
+    margin-right: 10px;
+  }
+
+  .main-info-section{
+    position: absolute;
+  }
+
+  .link-section{
+    position: relative;
+    text-align: right;
+    bottom: 0;
+  }
+
+  .sign-in-section {
+    flex: 1;
+    background-color: rgba(100, 100, 100, 0.61);
+    padding: 20px;
+    margin-left: 10px;
+  }
+
+  .sing-in-title {
+    margin-bottom: 5px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  input {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  button {
+    padding: 10px;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #005bb5;
+  }
+
+  a:link {
+    color: blue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:visited {
+    color: blue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  
+  a:active {
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
+  }
