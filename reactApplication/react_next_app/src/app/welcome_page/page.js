@@ -2,7 +2,6 @@
 
 import styles from "./welcome_page_stylesheet.css";
 import Toolbar from "@/components/top_toolbar";
-import handleSubmit from "@/components/sign-in_component";
 import { useState } from "react";
 
 export default function Home() {
@@ -10,7 +9,6 @@ export default function Home() {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
-    console.log("Reached 1")
     e.preventDefault();
     const response = await fetch("http://localhost:8080/login", {
       method: "POST",
@@ -18,19 +16,18 @@ export default function Home() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username,
-        password,
+        username: username,
+        password: password,
       }),
     });
 
     const data = await response.json();
-    console.log("Reached 2")
     if (response.ok) {
       // If login successful, mark the user as authenticated
-      setIsAuthenticated(true);
+      console.log("Accepted")
     } else {
       // Display an error message if login fails
-      setErrorMessage(data.message || "Login failed. Please try again.");
+      console.log("Rejected")
     }
     return (<p></p>);
   }
