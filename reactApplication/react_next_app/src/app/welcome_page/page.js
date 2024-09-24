@@ -3,11 +3,13 @@
 import styles from "./welcome_page_stylesheet.css";
 import Toolbar from "@/components/top_toolbar";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import handleSubmit from "@/controllers/login_controller.js"
 
 export default function Home() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   return (
     <div className="main-container">
@@ -41,7 +43,7 @@ export default function Home() {
           <div className="sign-in-title">
             <h2>Sign In</h2>
           </div>
-          <form onSubmit={(e) => handleSubmit(e, username, password)}>
+          <form onSubmit={(e) => handleSubmit(e, username, password, router)}>
             <input type="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
             <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
             <button type="submit">Sign In</button>

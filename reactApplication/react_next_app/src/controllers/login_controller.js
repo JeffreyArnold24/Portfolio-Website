@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-const handleSubmit = async (e, username, password) => {
-    console.log("reached")
+const handleSubmit = async (e, username, password, router) => {
     e.preventDefault();
     const response = await fetch("http://localhost:8080/login", {
       method: "POST",
@@ -16,9 +16,10 @@ const handleSubmit = async (e, username, password) => {
     });
 
     const data = await response.json();
-    if (response.ok) {
+    if (response.ok && data.authToken) {
       // If login successful, mark the user as authenticated
       console.log("Accepted")
+      router.push("/home_page");
     } else {
       // Display an error message if login fails
       console.log("Rejected")
