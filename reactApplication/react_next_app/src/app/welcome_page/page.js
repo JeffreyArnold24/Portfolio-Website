@@ -3,34 +3,11 @@
 import styles from "./welcome_page_stylesheet.css";
 import Toolbar from "@/components/top_toolbar";
 import { useState } from "react";
+import handleSubmit from "@/controllers/login_controller.js"
 
 export default function Home() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await fetch("http://localhost:8080/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
-    });
-
-    const data = await response.json();
-    if (response.ok) {
-      // If login successful, mark the user as authenticated
-      console.log("Accepted")
-    } else {
-      // Display an error message if login fails
-      console.log("Rejected")
-    }
-    return (<p></p>);
-  }
 
   return (
     <div className="main-container">
@@ -64,7 +41,7 @@ export default function Home() {
           <div className="sign-in-title">
             <h2>Sign In</h2>
           </div>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(e) => handleSubmit(e, username, password)}>
             <input type="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
             <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
             <button type="submit">Sign In</button>
