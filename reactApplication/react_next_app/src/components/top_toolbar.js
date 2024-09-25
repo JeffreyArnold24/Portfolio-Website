@@ -1,11 +1,25 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import ThemeToggle from "@/components/dark_theme_toggle_button";
 import styles from './styles/toolbar.css'
 
 export default function Toolbar() {
   const router = useRouter();
   const currentPath = router.pathname;
+
+  const [username, setUsername] = useState(null);
+
+  // Retrieve username from localStorage when component mounts
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+    else{
+      setUsername('')
+    }
+  }, []);
 
   const links = [
     { name: 'Home', path: '/' },
@@ -22,8 +36,18 @@ export default function Toolbar() {
           ))}
         </ul>
       </nav>
-      <div className='dark_theme_button'>
-        <ThemeToggle />
+      
+      <div className='username_dark_theme'>
+        {/* Display the username if it exists */}
+        {username && (
+          <div className="username_display">
+            {username}
+          </div>
+        )}
+
+        <div className='dark_theme_button'>
+          <ThemeToggle />
+        </div>
       </div>
     </div>
   );

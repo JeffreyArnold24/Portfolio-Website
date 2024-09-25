@@ -11,8 +11,13 @@
     z-index: 100;
     background-color: gray;
   }
-.dark_theme_button{
-    float:right;
+.username_dark_theme{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.username_display{
+  padding-right: 20px;
 }
 ul {
     list-style: none;
