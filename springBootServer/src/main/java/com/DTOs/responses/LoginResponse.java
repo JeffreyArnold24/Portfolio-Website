@@ -1,4 +1,4 @@
-package com.example.DTOs.responses;
+package com.DTOs.responses;
 
 // This class is used to store data relating to a user's profile
 public class LoginResponse {

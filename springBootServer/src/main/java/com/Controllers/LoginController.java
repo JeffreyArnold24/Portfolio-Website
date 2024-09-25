@@ -1,11 +1,11 @@
-package com.example.demo;
+package com.Controllers;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.DTOs.requests.LoginRequest;
-import com.example.DTOs.responses.LoginResponse;
+import com.DTOs.requests.LoginRequest;
+import com.DTOs.responses.LoginResponse;
 
 @RestController
 public class LoginController {
