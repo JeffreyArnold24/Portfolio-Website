@@ -16,6 +16,7 @@ const handleSubmit = async (e, username, password) => {
     });
 
     const data = await response.json();
+    console.log(data);
     if (response.ok && data.authToken) {
       // If login successful, mark the user as authenticated
       localStorage.setItem('authToken', data.authToken)
