@@ -1,7 +1,10 @@
 package com.Services;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.DTOs.responses.LoginResponse;
@@ -10,7 +13,7 @@ import com.Configurations.DatabaseConfig;
 import com.DAOs.UsersDAOInterface;
 
 @Service
-public class LoginService {
+public class LoginService{
 
 
     // Constructor Setup for Dependency Injection
@@ -21,10 +24,10 @@ public class LoginService {
 
     private void verifyLoginCredentials(LoginRequest request){
         if (request.getUsername() == ""){
-            throw new ResponseStatusException(HttpStatus.EXPECTATION_FAILED, "Please include a Username.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Please include a Username.");
         }
         if (request.getPassword() == null){
-            throw new ResponseStatusException(HttpStatus.EXPECTATION_FAILED, "Please include a Password.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Please include a Password.");
         }
     }
 
