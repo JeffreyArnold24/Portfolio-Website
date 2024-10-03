@@ -1,10 +1,7 @@
 package com.Services;
 
-import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException.BadRequest;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.DTOs.responses.LoginResponse;
@@ -22,6 +19,7 @@ public class LoginService{
         this.databaseConfig = databaseConfig;
     }
 
+    // Used to verify a valid request
     private void verifyLoginCredentials(LoginRequest request){
         if (request.getUsername() == ""){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Please include a Username.");
@@ -36,7 +34,7 @@ public class LoginService{
     public LoginResponse login(LoginRequest request){
         verifyLoginCredentials(request);
         UsersDAOInterface usersDAO = databaseConfig.getUsersDAO();
-        LoginResponse response = usersDAO.response();
+        LoginResponse response = usersDAO.checkUser();
         return response;
     }
     

@@ -4,6 +4,6 @@ import com.DTOs.responses.LoginResponse;
 
 public interface UsersDAOInterface {
 
-    public LoginResponse response();
+    public LoginResponse checkUser();
     
 }
