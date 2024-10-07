@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.stereotype.Repository;
@@ -16,8 +18,10 @@ import com.DTOs.responses.LoginResponse;
 public class UsersDAOSQLite implements UsersDAOInterface {
 
     private static String url;
+    private Connection conn;
     public UsersDAOSQLite(String url){
         UsersDAOSQLite.url = url;
+        conn = connectToDatabase();
     }
 
     private static Connection connectToDatabase(){
@@ -25,16 +29,38 @@ public class UsersDAOSQLite implements UsersDAOInterface {
         try{
             conn = DriverManager.getConnection(url);
         }
-        catch (SQLException e){
+        catch (SQLException e){ 
             System.out.print(e);
         }
         return conn;
     }
 
     @Override
-    public LoginResponse checkUser() {
-        connectToDatabase();
-        return new LoginResponse("username", "password");
+    public Boolean checkUserExists(String username) {
+        String query = "SELECT COUNT (*)"
+                     + "FROM users"
+                     + "WHERE username = ?";
+        
+        try (PreparedStatement stmt = conn.prepareStatement(query)){
+            stmt.setString(1, username);
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            if(resultSet.next()){
+                int count = resultSet.getInt(1);
+                if (count > 0){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return false;
     }
     
 }

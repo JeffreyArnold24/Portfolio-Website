@@ -31,11 +31,17 @@ public class LoginService{
 
 
 
+
     public LoginResponse login(LoginRequest request){
         verifyLoginCredentials(request);
         UsersDAOInterface usersDAO = databaseConfig.getUsersDAO();
-        LoginResponse response = usersDAO.checkUser();
-        return response;
+        if (usersDAO.checkUserExists(request.getUsername())){
+
+        }
+        else{
+
+        }
+        return new LoginResponse(null, null);
     }
     
 }
