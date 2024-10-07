@@ -37,8 +37,8 @@ public class UsersDAOSQLite implements UsersDAOInterface {
 
     @Override
     public Boolean checkUserExists(String username) {
-        String query = "SELECT COUNT (*)"
-                     + "FROM users"
+        String query = "SELECT COUNT (*) "
+                     + "FROM users "
                      + "WHERE username = ?";
         
         try (PreparedStatement stmt = conn.prepareStatement(query)){
@@ -65,8 +65,8 @@ public class UsersDAOSQLite implements UsersDAOInterface {
 
     @Override
     public Boolean createUser(String username, String password) {
-        String query = "INSERT INTO users"
-                     + "(username, password)"
+        String query = "INSERT INTO users "
+                     + "(username, password) "
                      + "VALUES (?, ?)";
         
         try (PreparedStatement stmt = conn.prepareStatement(query)){
@@ -85,8 +85,8 @@ public class UsersDAOSQLite implements UsersDAOInterface {
 
     @Override
     public String getPassword(String username){
-        String query = "SELECT password"
-                     + "FROM users"
+        String query = "SELECT password "
+                     + "FROM users "
                      + "WHERE username = ?";
         
         try (PreparedStatement stmt = conn.prepareStatement(query)){

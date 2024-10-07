@@ -7,6 +7,6 @@ public interface AuthTokenDAOInterface {
     public Boolean verifyAuthToken(String authToken);
     public Boolean deleteAuthToken(String authToken);
     public Boolean deleteExpiredTokens();
-    public String createAuthToken(String username, String authToken, LocalDateTime creationDateTime);
+    public Boolean createAuthToken(String username, String authToken, LocalDateTime creationDateTime);
 
 }

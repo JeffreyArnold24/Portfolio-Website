@@ -1,19 +1,24 @@
 package com.Services;
 
+import java.time.LocalDateTime;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.DTOs.responses.LoginResponse;
+import com.Utils.AuthTokenUtil;
 import com.Utils.PasswordUtil;
 import com.DTOs.requests.LoginRequest;
 import com.Configurations.DatabaseConfig;
+import com.DAOs.AuthTokenDAOInterface;
 import com.DAOs.UsersDAOInterface;
 
 @Service
 public class LoginService{
 
     UsersDAOInterface usersDAO;
+    AuthTokenDAOInterface authTokenDAO;
 
     // Constructor Setup for Dependency Injection
     private DatabaseConfig databaseConfig;
@@ -39,12 +44,25 @@ public class LoginService{
         return PasswordUtil.verifyPassword(password, hashedPassword);
     }
 
+    private String createAuthToken(String username){
+        authTokenDAO = databaseConfig.getAuthTokenDAO();
+        String authToken = AuthTokenUtil.generateAuthToken();
+        if(authTokenDAO.createAuthToken(username, authToken, LocalDateTime.now())){
+            return authToken;
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Please try again later.");
+        }
+        
+    }
+
     // Used to create a user in the database and assign them
     // and Authtoken.
     public LoginResponse createUser(LoginRequest request){
         String hashedPassword = hashPassword(request.getPassword());
         if (usersDAO.createUser(request.getUsername(), hashedPassword)){
-            return new LoginResponse(request.getUsername(), null);
+            String authToken = createAuthToken(request.getUsername());
+            return new LoginResponse(request.getUsername(), authToken);
         }
         else{
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not create user.");
@@ -56,7 +74,8 @@ public class LoginService{
     public LoginResponse signInUser(LoginRequest request){
         String retreivedPassword = usersDAO.getPassword(request.getUsername());
         if(verifyPasswordCredetials(request.getPassword(), retreivedPassword)){
-            return new LoginResponse(request.getUsername(), null);
+            String authToken = createAuthToken(request.getUsername());
+            return new LoginResponse(request.getUsername(), authToken);
         }
         else{
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect Password.");
@@ -67,13 +86,14 @@ public class LoginService{
     public LoginResponse login(LoginRequest request){
         verifyLoginCredentials(request);
         usersDAO = databaseConfig.getUsersDAO();
+        LoginResponse response = null;
         if (usersDAO.checkUserExists(request.getUsername())){
-            //signInUser(usersDAO, request);
+            response = signInUser(request);
         }
         else{
-            createUser(request);
+            response = createUser(request);
         }
-        return new LoginResponse(null, null);
+        return response;
     }
     
 }

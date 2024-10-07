@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.DAOs.AuthTokenDAOInterface;
+import com.DAOs.AuthTokenDAOSQLite;
 import com.DAOs.UsersDAOInterface;
 import com.DAOs.UsersDAOSQLite;
 
@@ -24,6 +26,13 @@ public class DatabaseConfig {
     public UsersDAOInterface getUsersDAO(){
         if (type.equals("sqlite")){
             return new UsersDAOSQLite(getDatabaseURL());
+        }
+        return null;
+    }
+
+    public AuthTokenDAOInterface getAuthTokenDAO(){
+        if (type.equals("sqlite")){
+            return new AuthTokenDAOSQLite(getDatabaseURL());
         }
         return null;
     }
