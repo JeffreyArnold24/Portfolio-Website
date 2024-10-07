@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.DTOs.responses.LoginResponse;
+import com.Utils.PasswordUtil;
 import com.DTOs.requests.LoginRequest;
 import com.Configurations.DatabaseConfig;
 import com.DAOs.UsersDAOInterface;
@@ -12,6 +13,7 @@ import com.DAOs.UsersDAOInterface;
 @Service
 public class LoginService{
 
+    UsersDAOInterface usersDAO;
 
     // Constructor Setup for Dependency Injection
     private DatabaseConfig databaseConfig;
@@ -29,17 +31,47 @@ public class LoginService{
         }
     }
 
+    private String hashPassword(String Password){
+        return PasswordUtil.hashPassword(Password);
+    }
 
+    private Boolean verifyPasswordCredetials(String password, String hashedPassword){
+        return PasswordUtil.verifyPassword(password, hashedPassword);
+    }
+
+    // Used to create a user in the database and assign them
+    // and Authtoken.
+    public LoginResponse createUser(LoginRequest request){
+        String hashedPassword = hashPassword(request.getPassword());
+        if (usersDAO.createUser(request.getUsername(), hashedPassword)){
+            return new LoginResponse(request.getUsername(), null);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not create user.");
+        }
+    }
+
+    // Used to verify an existing username and password.
+    // Assigns an Authtoken on successful sign-in
+    public LoginResponse signInUser(LoginRequest request){
+        String retreivedPassword = usersDAO.getPassword(request.getUsername());
+        if(verifyPasswordCredetials(request.getPassword(), retreivedPassword)){
+            return new LoginResponse(request.getUsername(), null);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect Password.");
+        }
+    }
 
 
     public LoginResponse login(LoginRequest request){
         verifyLoginCredentials(request);
-        UsersDAOInterface usersDAO = databaseConfig.getUsersDAO();
+        usersDAO = databaseConfig.getUsersDAO();
         if (usersDAO.checkUserExists(request.getUsername())){
-
+            //signInUser(usersDAO, request);
         }
         else{
-
+            createUser(request);
         }
         return new LoginResponse(null, null);
     }

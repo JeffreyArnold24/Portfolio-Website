@@ -62,5 +62,34 @@ public class UsersDAOSQLite implements UsersDAOInterface {
 
         return false;
     }
+
+    @Override
+    public Boolean createUser(String username, String password) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'createUser'");
+    }
+
+    @Override
+    public String getPassword(String username){
+        String query = "SELECT password"
+                     + "FROM users"
+                     + "WHERE username = ?";
+        
+        try (PreparedStatement stmt = conn.prepareStatement(query)){
+            stmt.setString(1, username);
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            if(resultSet.next()){
+                String password = resultSet.getString(1);
+                return password;
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
     
 }
