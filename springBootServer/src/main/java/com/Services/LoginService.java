@@ -1,5 +1,7 @@
 package com.Services;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,8 @@ public class LoginService{
     private DatabaseConfig databaseConfig;
     public LoginService(DatabaseConfig databaseConfig){
         this.databaseConfig = databaseConfig;
+        usersDAO = databaseConfig.getUsersDAO();
+        authTokenDAO = databaseConfig.getAuthTokenDAO();
     }
 
     // Used to verify a valid request
@@ -45,7 +49,7 @@ public class LoginService{
     }
 
     private String createAuthToken(String username){
-        authTokenDAO = databaseConfig.getAuthTokenDAO();
+        
         String authToken = AuthTokenUtil.generateAuthToken();
         if(authTokenDAO.createAuthToken(username, authToken, LocalDateTime.now())){
             return authToken;
@@ -85,7 +89,6 @@ public class LoginService{
 
     public LoginResponse login(LoginRequest request){
         verifyLoginCredentials(request);
-        usersDAO = databaseConfig.getUsersDAO();
         LoginResponse response = null;
         if (usersDAO.checkUserExists(request.getUsername())){
             response = signInUser(request);
