@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const handleSubmit = async (e, username, password) => {
+const handleLoginSubmit = async (e, username, password) => {
     e.preventDefault();
     const response = await fetch("http://localhost:8080/login", {
       method: "POST",
@@ -21,11 +21,16 @@ const handleSubmit = async (e, username, password) => {
       // If login successful, mark the user as authenticated
       localStorage.setItem('authToken', data.authToken)
       localStorage.setItem('username', data.username)
+      const authToken = data.authToken
+      const success = true
+      return {success, authToken}
     } else {
       // Display an error message if login fails
-      console.log("Rejected")
+      const message = data.message
+      const success = false
+      return {success, message}
     }
-    return (<p></p>);
+    
   }
 
-export default handleSubmit;
+export default handleLoginSubmit;

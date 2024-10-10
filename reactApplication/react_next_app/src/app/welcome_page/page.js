@@ -3,11 +3,22 @@
 import styles from "./welcome_page_stylesheet.css";
 import Toolbar from "@/components/top_toolbar";
 import { useState } from "react";
-import handleSubmit from "@/controllers/login_controller.js"
+import handleLoginSubmit from "@/controllers/login_controller.js"
 
 export default function Home() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const onLoginSubmit = async (e) => {
+    e.preventDefault();
+    const {result, message} = await handleLoginSubmit(e, username, password);
+    if (result) {
+      setErrorMessage("");
+    } else {
+      setErrorMessage(message);
+    }
+  }
 
   return (
     <div className="main-container">
@@ -41,9 +52,10 @@ export default function Home() {
           <div className="sign-in-title">
             <h2>Sign In</h2>
           </div>
-          <form onSubmit={(e) => handleSubmit(e, username, password)}>
+          <form onSubmit={(e) => onLoginSubmit(e)}>
             <input type="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
             <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+            {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Conditionally display the error message */}
             <button type="submit">Sign In</button>
           </form>
         </div>

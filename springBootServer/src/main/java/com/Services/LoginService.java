@@ -40,7 +40,7 @@ public class LoginService{
         if (request.getUsername() == ""){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Please include a Username.");
         }
-        if (request.getPassword() == null){
+        if (request.getPassword() == ""){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Please include a Password.");
         }
     }
