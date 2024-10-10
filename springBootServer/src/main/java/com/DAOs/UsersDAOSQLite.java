@@ -1,9 +1,5 @@
 package com.DAOs;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.stereotype.Repository;
-
-import com.DTOs.responses.LoginResponse;
 
 @Repository
 public class UsersDAOSQLite implements UsersDAOInterface {
@@ -24,6 +18,11 @@ public class UsersDAOSQLite implements UsersDAOInterface {
         conn = connectToDatabase();
     }
 
+    /** Uses the url given in the constuctor to establish a connection to an
+     * SQLite Database.
+     * 
+     * @return  The connection to the database.
+     */
     private static Connection connectToDatabase(){
         Connection conn = null;
         try{
@@ -35,6 +34,11 @@ public class UsersDAOSQLite implements UsersDAOInterface {
         return conn;
     }
 
+    /** Checks if the user exists in the users table
+     * 
+     * @param username  The username to check for
+     * @return          Returns true if the username exists and false otherwise.
+     */
     @Override
     public Boolean checkUserExists(String username) {
         String query = "SELECT COUNT (*) "
@@ -63,6 +67,12 @@ public class UsersDAOSQLite implements UsersDAOInterface {
         return false;
     }
 
+    /** Adds the username and password to the database.
+     * 
+     * @param username  The username to add to the database.
+     * @param password  The hashed password to add to the database.
+     * @return          Returns true if the insert was successful and false otherwise.
+     */
     @Override
     public Boolean createUser(String username, String password) {
         String query = "INSERT INTO users "
@@ -83,6 +93,11 @@ public class UsersDAOSQLite implements UsersDAOInterface {
         return false;
     }
 
+    /** Retreives the password of the given username.
+     * 
+     * @param username  The username of the user whos password we are retreiving.
+     * @return          The password of the username.
+     */
     @Override
     public String getPassword(String username){
         String query = "SELECT password "

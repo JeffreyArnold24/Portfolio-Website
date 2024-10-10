@@ -1,7 +1,6 @@
 package com.DAOs;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +10,8 @@ import java.time.LocalDateTime;
 
 public class AuthTokenDAOSQLite implements AuthTokenDAOInterface {
 
+    private long timeIntervalMilliseconds = 600000;
+
     private static String url;
     private Connection conn;
     public AuthTokenDAOSQLite(String url){
@@ -18,6 +19,11 @@ public class AuthTokenDAOSQLite implements AuthTokenDAOInterface {
         conn = connectToDatabase();
     }
 
+    /** Uses the url given in the constuctor to establish a connection to an
+     * SQLite Database.
+     * 
+     * @return  The connection to the database.
+     */
     private static Connection connectToDatabase(){
         Connection conn = null;
         try{
@@ -29,6 +35,11 @@ public class AuthTokenDAOSQLite implements AuthTokenDAOInterface {
         return conn;
     }
 
+    /** Checks if the given authToken exists in the database.
+     * 
+     * @param authToken The authToken to check for.
+     * @return          Returns true if the authToken exists in the database and false otherwise.
+     */
     @Override
     public Boolean verifyAuthToken(String authToken) {
         String query = "SELECT COUNT (*) "
@@ -63,13 +74,19 @@ public class AuthTokenDAOSQLite implements AuthTokenDAOInterface {
         throw new UnsupportedOperationException("Unimplemented method 'deleteAuthToken'");
     }
 
+    /** Deletes all authTokens that are older than the value "timeIntervalMilliseconds"
+     * 
+     * @return  Returns true if the process is successful and false otherwise.
+     */
     @Override
     public Boolean deleteExpiredTokens() {
-        String deleteSQL = "DELETE FROM authToken WHERE creationDateTime <= (strftime('%s','now') * 1000 - 600000)";
-        try (PreparedStatement pstmt = conn.prepareStatement(deleteSQL)) {
+        String deleteSQL = "DELETE FROM authToken WHERE creationDateTime <= (strftime('%s','now') * 1000 - ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(deleteSQL)) {
+
+            stmt.setLong(1, timeIntervalMilliseconds);
 
             // Execute the delete statement
-            int rowsDeleted = pstmt.executeUpdate();
+            int rowsDeleted = stmt.executeUpdate();
 
             System.out.println("Deleted " + rowsDeleted + " expired tokens.");
             return true;
@@ -80,6 +97,13 @@ public class AuthTokenDAOSQLite implements AuthTokenDAOInterface {
         return false;
     }
 
+    /** Adds an authToken into the database.
+     * 
+     * @param username          The username that the authToken belongs to.
+     * @param authToken         The authToken to be stored.
+     * @param creationDateTime  When the authToken was created to allow for expiration.
+     * @return                  Returns true if successful and false otherwise.
+     */
     @Override
     public Boolean createAuthToken(String username, String authToken, LocalDateTime creationDateTime) {
         String query = "INSERT INTO authToken "
