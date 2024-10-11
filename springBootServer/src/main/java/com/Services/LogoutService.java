@@ -1,10 +1,13 @@
 package com.Services;
 
+import org.springframework.stereotype.Service;
+
 import com.Configurations.DatabaseConfig;
 import com.DAOs.AuthTokenDAOInterface;
 import com.DTOs.requests.LogoutRequest;
 import com.DTOs.responses.LogoutResponse;
 
+@Service
 public class LogoutService {
 
     AuthTokenDAOInterface authTokenDAO;
