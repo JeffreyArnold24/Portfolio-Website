@@ -3,15 +3,13 @@
 import styles from "./welcome_page_stylesheet.css";
 import Toolbar from "@/components/top_toolbar";
 import { useState, useEffect } from "react";
-import handleLoginSubmit from "@/controllers/login_controller.js"
-import { useRouter } from "next/navigation"
+import {handleLoginSubmit, handleLogoutSubmit} from "@/controllers/login_controller.js"
 
 export default function Home() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [authToken, setAuthToken] = useState(null);
-  const router = useRouter();
 
   useEffect(() => {
     // Check for authToken in local storage when the component mounts
@@ -29,6 +27,17 @@ export default function Home() {
       window.location.reload();
     } else {
       setErrorMessage(message);
+    }
+  }
+
+  const onLogoutSubmit = async (e) => {
+    e.preventDefault();
+    const {success, message} = await handleLogoutSubmit(e, localStorage.getItem("username"), localStorage.getItem(authToken));
+    if (success) {
+      setErrorMessage("");
+      window.location.reload();
+    } else {
+      setErrorMessage(message)
     }
   }
 
@@ -61,18 +70,24 @@ export default function Home() {
 
         {/* Sign-in Section on the right */}
         <div className="sign-in-section">
-          <div className="sign-in-title">
-            <h2>Sign In</h2>
-          </div>
           {authToken ? (
-            <p>You are signed in.</p> // Show this message if authToken exists
+            <div>
+              <p>You are signed in.</p>
+              <button type="submit" onClick={onLogoutSubmit}>Sign Out</button>
+              {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Conditionally display the error message */}
+            </div>
           ) : (
-          <form onSubmit={(e) => onLoginSubmit(e)}>
-            <input type="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
-            <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-            {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Conditionally display the error message */}
-            <button type="submit">Sign In</button>
-          </form>
+          <div>
+            <div className="sign-in-title">
+              <h2>Sign In</h2>
+            </div>
+            <form onSubmit={(e) => onLoginSubmit(e)}>
+              <input type="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
+              <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+              {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Conditionally display the error message */}
+              <button type="submit">Sign In</button>
+            </form>
+          </div>
           )}
         </div>
       </div>

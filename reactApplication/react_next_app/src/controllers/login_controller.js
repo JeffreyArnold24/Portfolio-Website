@@ -32,4 +32,34 @@ const handleLoginSubmit = async (e, username, password) => {
     
   }
 
-export default handleLoginSubmit;
+  const handleLogoutSubmit = async (e, username, authToken) => {
+    e.preventDefault();
+    const response = await fetch("http://localhost:8080/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        authToken: authToken,
+      }),
+    });
+
+    const data = await response.json();
+    if (response.ok && data.authToken) {
+      // If login successful, mark the user as authenticated
+      localStorage.removeItem('authToken')
+      localStorage.removeItem('username')
+      const success = true;
+      const message = "";
+      return {success, message}
+    } else {
+      // Display an error message if login fails
+      const message = data.message
+      const success = false
+      return {success, message}
+    }
+    
+  }
+
+export {handleLoginSubmit, handleLogoutSubmit};
