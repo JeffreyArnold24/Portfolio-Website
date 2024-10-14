@@ -22,7 +22,6 @@ public class LogoutService {
     }
 
     public LogoutResponse logout(LogoutRequest request){
-        System.out.print(request.getAuthToken());
         if(authTokenDAO.verifyAuthToken(request.getAuthToken())){
             if (authTokenDAO.deleteAuthToken(request.getAuthToken())){
                 return new LogoutResponse("Logout Successful");
