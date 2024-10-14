@@ -68,7 +68,11 @@ public class AuthTokenDAOSQLite implements AuthTokenDAOInterface {
         return false;
     }
 
-
+    /** Deletes the provided authToken from the database.
+     * 
+     * @param authToken The authToken to be deleted.
+     * @return          A boolean that indicates if it was successful.
+     */
     @Override
     public Boolean deleteAuthToken(String authToken) {
         String deleteSQL = "DELETE FROM authToken WHERE authToken = ?";
