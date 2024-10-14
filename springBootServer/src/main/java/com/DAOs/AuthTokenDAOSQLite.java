@@ -68,10 +68,27 @@ public class AuthTokenDAOSQLite implements AuthTokenDAOInterface {
         return false;
     }
 
+
     @Override
     public Boolean deleteAuthToken(String authToken) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAuthToken'");
+        String deleteSQL = "DELETE FROM authToken WHERE authToken = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(deleteSQL)) {
+
+            stmt.setString(1, authToken);
+            int rowsDeleted = stmt.executeUpdate();
+
+            if (rowsDeleted > 0){
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
     /** Deletes all authTokens that are older than the value "timeIntervalMilliseconds"

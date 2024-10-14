@@ -17,8 +17,13 @@ public class LogoutController {
         this.logoutService = logoutService;
     }
 
+    /** Used to logout a user which includes deleting their authToken.
+     * 
+     * @param request   The request from the front-end
+     * @return          A class that contains a message whether the logout was successful or not.
+     */
     @PostMapping("/logout")
-    public LogoutResponse sayHello(@RequestBody LogoutRequest request) {
+    public LogoutResponse logoutController(@RequestBody LogoutRequest request) {
         LogoutResponse response = logoutService.logout(request);
         return response;
     }

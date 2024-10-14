@@ -25,7 +25,7 @@ public class LoginController {
      * @return        The username and authToken of the user if the sign in is successful.
      */
     @PostMapping("/login")
-    public LoginResponse sayHello(@RequestBody LoginRequest request) {
+    public LoginResponse loginController(@RequestBody LoginRequest request) {
         LoginResponse response = loginService.login(request);
         return response;
     }

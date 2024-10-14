@@ -32,7 +32,7 @@ export default function Home() {
 
   const onLogoutSubmit = async (e) => {
     e.preventDefault();
-    const {success, message} = await handleLogoutSubmit(e, localStorage.getItem("username"), localStorage.getItem(authToken));
+    const {success, message} = await handleLogoutSubmit(e, localStorage.getItem("username"), localStorage.getItem("authToken"));
     if (success) {
       setErrorMessage("");
       window.location.reload();

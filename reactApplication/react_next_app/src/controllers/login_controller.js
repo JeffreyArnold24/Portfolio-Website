@@ -34,6 +34,7 @@ const handleLoginSubmit = async (e, username, password) => {
 
   const handleLogoutSubmit = async (e, username, authToken) => {
     e.preventDefault();
+    console.log(authToken)
     const response = await fetch("http://localhost:8080/logout", {
       method: "POST",
       headers: {
