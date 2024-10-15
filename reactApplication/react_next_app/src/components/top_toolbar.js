@@ -23,6 +23,7 @@ export default function Toolbar() {
 
   const links = [
     { name: 'Home', path: '/' },
+    { name: 'Games', path: '/games_page' },
   ];
 
   return (
