@@ -91,7 +91,7 @@ public class LoginService{
      */
     public LoginResponse createUser(LoginRequest request){
         String hashedPassword = hashPassword(request.getPassword());
-        if (usersDAO.createUser(request.getUsername(), hashedPassword)){
+        if (usersDAO.createUser(request.getUsername(), hashedPassword, LocalDateTime.now())){
             String authToken = createAuthToken(request.getUsername());
             return new LoginResponse(request.getUsername(), authToken);
         }

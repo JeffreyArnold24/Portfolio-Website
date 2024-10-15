@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Repository;
 
@@ -74,14 +76,15 @@ public class UsersDAOSQLite implements UsersDAOInterface {
      * @return          Returns true if the insert was successful and false otherwise.
      */
     @Override
-    public Boolean createUser(String username, String password) {
+    public Boolean createUser(String username, String password, LocalDateTime creationDateTime) {
         String query = "INSERT INTO users "
-                     + "(username, password) "
-                     + "VALUES (?, ?)";
+                     + "(username, password, creationDateTime) "
+                     + "VALUES (?, ?, ?)";
         
         try (PreparedStatement stmt = conn.prepareStatement(query)){
             stmt.setString(1, username);
             stmt.setString(2, password);
+            stmt.setTimestamp(3, Timestamp.valueOf(creationDateTime));
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0){
                 return true;
