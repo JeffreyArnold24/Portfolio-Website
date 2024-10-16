@@ -2,6 +2,9 @@
 
 import styles from './styles/hangman.css'
 import { useState } from "react";
+import Image from 'next/image';
+
+
 
 export default function Hangman() {
 
@@ -11,10 +14,19 @@ export default function Hangman() {
         setHangmanGameStarted(true);
     }
 
+
     return (
         <div className="main-container">
             <div className="hangman">
-                <p>Hangman</p>
+                <h2>Hangman</h2>
+                {hangmanGameStarted ? (
+                    <Image
+                    src="/hangman/base.png"
+                    alt={"Hangman"}
+                    width={256}
+                    height={256}
+                    />
+                ) : (<></>)}
                 <div className="gameStart">
                     <label htmlFor="numberDropdown">Number of letters: </label>
                     <select id="numberDropdown">
