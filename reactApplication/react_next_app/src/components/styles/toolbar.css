@@ -36,3 +36,39 @@ a {
     font-weight: bold;
     text-decoration: underline;
   }
+
+  button {
+    padding: 10px;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #005bb5;
+  }
+
+  a:link {
+    color: blue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:visited {
+    color: blue;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  
+  a:active {
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
+  }
