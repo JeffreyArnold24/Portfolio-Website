@@ -7,9 +7,11 @@ import Hangman from "@/components/hangman";
 export default function Games() {
     
     return (
-    <div className="main-container">
+    <div className="games-container">
         <div><Toolbar /></div>
-        <div><Hangman /></div>
+        <div className="games-page-container">
+            <div><Hangman /></div>
+        </div>
     </div>
     );
 }

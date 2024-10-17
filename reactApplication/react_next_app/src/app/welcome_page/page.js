@@ -5,7 +5,7 @@ import Toolbar from "@/components/top_toolbar";
 import { useState, useEffect } from "react";
 import {handleLoginSubmit, handleLogoutSubmit} from "@/controllers/login_controller.js"
 
-export default function Home() {
+export default function WelcomePage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -42,19 +42,19 @@ export default function Home() {
   }
 
   return (
-    <div className="main-container">
+    <div className="welcome-main-container">
     <div><Toolbar /></div>
     {/* Title Section */}
-      <div className="title-section">
+      <div className="welcome-title-section">
         <h1>Welcome to the Portfolio of</h1>
         <h1>Jeffrey Arnold</h1>
       </div>
 
       {/* Description and Sign-In Section */}
-      <div className="secondary-section">
+      <div className="welcome-secondary-section">
         {/* Description Section on the left */}
-        <div className="description-section">
-          <div className="main_info-section">
+        <div className="welcome-description-section">
+          <div className="welcome-main_info-section">
             <p>My name is Jeffrey Arnold. I have created this website to 
               showcase some projects that I have been working on. 
               I am going to ask you to create an account so that I can
@@ -62,14 +62,14 @@ export default function Home() {
               user and everything related to them each night because
               this is only meant for demonstration.</p>
           </div>
-          <div className="link-section">
+          <div className="welcome-link-section">
             <p>Email: jeffarnold02@gmail.com</p>
             <a href="https://github.com/JeffreyArnold24/reactApplication">Source Files</a>
           </div>
         </div>
 
         {/* Sign-in Section on the right */}
-        <div className="sign-in-section">
+        <div className="welcome-sign-in-section">
           {authToken ? (
             <div>
               <p>You are signed in.</p>
@@ -78,7 +78,7 @@ export default function Home() {
             </div>
           ) : (
           <div>
-            <div className="sign-in-title">
+            <div className="welcome-sign-in-title">
               <h2>Sign In</h2>
             </div>
             <form onSubmit={(e) => onLoginSubmit(e)}>

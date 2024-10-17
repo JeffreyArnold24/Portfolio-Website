@@ -1,62 +1,78 @@
-.main-container {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    padding: 20px;
-  }
+.welcomepage-main-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 20px;
+}
 
-  .title-section {
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: x-large;
-  }
+.welcome-title-section {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: x-large;
+}
 
-  .secondary-section {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 900px;
-    align-self: center;
-  }
+.welcome-secondary-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  max-width: 80%;
+  margin: 0 auto;
+}
 
-  .description-section {
-    flex: 1;
-    background-color: rgba(211, 211, 211, 0.61);
-    padding: 20px;
-    margin-right: 10px;
-  }
+.welcome-description-section {
+  flex: 1;
+  background-color: rgba(211, 211, 211, 0.61);
+  padding: 20px;
+  max-width: 30%;
+  min-height: 250px;
+}
 
-  .main-info-section{
-    position: absolute;
-  }
+.welcome-main-info-section{
+  position: absolute;
+}
 
-  .link-section{
-    position: relative;
-    text-align: right;
-    bottom: 0;
-  }
+.welcome-link-section{
+  position: relative;
+  text-align: right;
+  padding-top: 20px;
+  bottom: 0;
+}
 
-  .sign-in-section {
-    flex: 1;
-    background-color: rgba(100, 100, 100, 0.61);
-    padding: 20px;
-    margin-left: 10px;
-  }
+.welcome-sign-in-section {
+  flex: 1;
+  background-color: rgba(100, 100, 100, 0.61);
+  padding: 20px;
+  max-width: 30%;
+  min-height: 250px;
+}
 
-  .sign-in-title {
-    margin-bottom: 5px;
-  }
+.welcome-sign-in-title {
+  margin-bottom: 10px;
+}
 
-  form {
-    display: flex;
-    flex-direction: column;
-  }
+form {
+  display: flex;
+  flex-direction: column;
+}
 
-  input {
-    margin-bottom: 10px;
-    padding: 10px;
-    font-size: 16px;
-    background-color: rgba(255, 255, 255, 0.5);
-  }
+input {
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+html,
+body {
+  padding-top: 50px;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: rgb(var(--text-color));
+  background: rgb(var(--background-color));
+}
 
   

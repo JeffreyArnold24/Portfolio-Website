@@ -83,18 +83,6 @@
   margin: 0;
 }
 
-html,
-body {
-  padding-top: 60px;
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: rgb(var(--text-color));
-  background: rgb(var(--background-color));
-}
-
 a {
   color: inherit;
   text-decoration: none;
