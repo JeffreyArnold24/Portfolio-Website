@@ -1,8 +1,8 @@
 "use client";
 
-const start_hangman = async() => {
-    const username = localStorage.getItem("username")
-    const authToken = localStorage.getItem("authToken")
+const start_hangman = async(numberCharacters) => {
+    const username = localStorage.getItem('username')
+    const numberChars = numberCharacters
     const response = await fetch("http://localhost:8081/hangman/starthangman", {
       method: "POST",
       headers: {
@@ -10,7 +10,7 @@ const start_hangman = async() => {
       },
       body: JSON.stringify({
         username: username,
-        authToken: authToken,
+        numberCharacters: numberChars
       }),
     });
 

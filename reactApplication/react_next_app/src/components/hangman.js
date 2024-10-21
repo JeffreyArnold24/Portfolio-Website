@@ -10,9 +10,10 @@ import { start_hangman } from '@/controllers/hangman_controller';
 export default function Hangman() {
 
     const [hangmanGameStarted, setHangmanGameStarted] = useState(false);
+    const [numberCharacters, setNumberCharacters] = useState(3);
 
     const start_game = () => {
-        start_hangman();
+        start_hangman(numberCharacters);
         setHangmanGameStarted(true);
     }
 
@@ -30,7 +31,9 @@ export default function Hangman() {
             ) : (<></>)}
             <div className="gameStart">
                 <label htmlFor="numberDropdown">Number of letters: </label>
-                <select id="numberDropdown">
+                <select id="numberDropdown"
+                        value={numberCharacters}  // Bind value to the state
+                        onChange={(e) => setNumberCharacters(Number(e.target.value))}>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>

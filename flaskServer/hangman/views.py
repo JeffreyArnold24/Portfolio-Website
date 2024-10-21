@@ -1,6 +1,6 @@
 from hangman import app
 from flask import jsonify, request
-from .services import *
+from .services import initialize_game
 
 items = [
     {'id': 1, 'name': 'Item 1', 'price': 10.99},
@@ -9,5 +9,6 @@ items = [
 
 @app.route('/hangman/starthangman', methods=['POST'])
 def initialize_hangman():
-    word = initialize_game
+    data = request.get_json()
+    word = initialize_game(data.get('username'), data.get('numberCharacters'))
     return jsonify(items), 200
