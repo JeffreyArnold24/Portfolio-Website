@@ -2,6 +2,7 @@
 
 const start_hangman = async(numberCharacters) => {
     const username = localStorage.getItem('username')
+    const authToken = localStorage.getItem('authToken')
     const numberChars = numberCharacters
     const response = await fetch("http://localhost:8081/hangman/starthangman", {
       method: "POST",
@@ -10,6 +11,7 @@ const start_hangman = async(numberCharacters) => {
       },
       body: JSON.stringify({
         username: username,
+        authToken: authToken,
         numberCharacters: numberChars
       }),
     });
