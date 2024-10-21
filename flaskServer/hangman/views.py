@@ -7,5 +7,5 @@ items = [
 ]
 
 @app.route('/hangman/starthangman', methods=['POST'])
-def get_items():
+def initialize_hangman():
     return jsonify(items), 200

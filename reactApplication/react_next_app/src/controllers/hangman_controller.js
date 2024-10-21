@@ -3,7 +3,7 @@
 const start_hangman = async() => {
     const username = localStorage.getItem("username")
     const authToken = localStorage.getItem("authToken")
-    const response = await fetch("http://localhost:5000/hangman/starthangman", {
+    const response = await fetch("http://localhost:8081/hangman/starthangman", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
