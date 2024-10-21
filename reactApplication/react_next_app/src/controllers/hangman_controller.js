@@ -1,11 +1,10 @@
 "use client";
 
-const start_game = async() => {
-    e.preventDefault();
+const start_hangman = async() => {
     const username = localStorage.getItem("username")
     const authToken = localStorage.getItem("authToken")
-    const response = await fetch("http://localhost:8081/starthangman", {
-      method: "GET",
+    const response = await fetch("http://localhost:5000/hangman/starthangman", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -16,4 +15,7 @@ const start_game = async() => {
     });
 
     const data = await response.json();
+    console.log(data)
 }
+
+export {start_hangman};

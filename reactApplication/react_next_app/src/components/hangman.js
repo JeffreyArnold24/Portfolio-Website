@@ -3,6 +3,7 @@
 import styles from './styles/hangman.css'
 import { useState } from "react";
 import Image from 'next/image';
+import { start_hangman } from '@/controllers/hangman_controller';
 
 
 
@@ -11,6 +12,7 @@ export default function Hangman() {
     const [hangmanGameStarted, setHangmanGameStarted] = useState(false);
 
     const start_game = () => {
+        start_hangman();
         setHangmanGameStarted(true);
     }
 
