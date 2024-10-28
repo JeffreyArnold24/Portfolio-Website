@@ -10,5 +10,6 @@ items = [
 @app.route('/hangman/starthangman', methods=['POST'])
 def initialize_hangman():
     data = request.get_json()
+    print (data)
     word = initialize_game(data.get('username'), data.get('authToken'), data.get('numberCharacters'))
-    return jsonify(items), 200
+    return jsonify(word), 200
