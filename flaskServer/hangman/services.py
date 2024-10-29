@@ -1,3 +1,4 @@
+from flask import abort
 from authentication.services import *
 from .models import HangmanGameInstance
 from hangman import db
@@ -16,7 +17,7 @@ def does_user_have_game(username):
 def initialize_game(username, authToken, numberCharacters):
 
     if not authTokenExists(authToken):
-        return "Error"
+        abort(400, description="User not recognized by system.")
     
     if does_user_have_game(username):
         return "True"
