@@ -19,18 +19,22 @@ def initialize_game(username, authToken, numberCharacters):
     if not authTokenExists(authToken):
         abort(400, description="User not recognized by system.")
     
+    new_word = create_word(numberCharacters)  
     if does_user_have_game(username):
-        return "True"
-    else:
-        new_word = create_word(numberCharacters)    
-        game_instance = HangmanGameInstance(
-            username = username,
-            guessedLetters = "",
-            usedGuesses = 0,
-            currentWord = new_word
-        )
-
-        db.session.add(game_instance)
+        rows_deleted = HangmanGameInstance.query.filter_by(username=username).delete()
         db.session.commit()
 
+    game_instance = HangmanGameInstance(
+        username = username,
+        guessedLetters = "",
+        usedGuesses = 0,
+        currentWord = new_word
+    )
+
+    db.session.add(game_instance)
+    db.session.commit()
+
+    return new_word
+
+def guess_letter(username, authToken, numberCharacters):
     return new_word
