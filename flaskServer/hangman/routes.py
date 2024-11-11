@@ -1,6 +1,6 @@
 from hangman import app
 from flask import jsonify, request
-from .services import initialize_game
+from .services import initialize_game, guess_letter_service
 
 items = [
     {'id': 1, 'name': 'Item 1', 'price': 10.99},
@@ -11,4 +11,16 @@ items = [
 def initialize_hangman():
     data = request.get_json()
     word = initialize_game(data.get('username'), data.get('authToken'), data.get('numberCharacters'))
-    return jsonify(word), 200
+    response = {
+        "word": word,
+    }
+    return jsonify(response), 200
+
+@app.route('/hangman/guessletter', methods=['POST'])
+def guess_letter():
+    data = request.get_json()
+    word = guess_letter_service(data.get('username'), data.get('authToken'), data.get('letter'))
+    response = {
+        "word": word,
+    }
+    return jsonify(response), 200

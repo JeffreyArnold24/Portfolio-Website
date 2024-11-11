@@ -3,7 +3,7 @@
 import styles from './styles/hangman.css'
 import { useState } from "react";
 import Image from 'next/image';
-import { start_hangman } from '@/controllers/hangman_controller';
+import { start_hangman, guess_letter } from '@/controllers/hangman_controller';
 
 
 
@@ -11,10 +11,24 @@ export default function Hangman() {
 
     const [hangmanGameStarted, setHangmanGameStarted] = useState(false);
     const [numberCharacters, setNumberCharacters] = useState(3);
+    const [letter, setLetter] = useState();
+    const [displayWord, setDisplayWord] = useState("");
 
     const start_game = () => {
-        start_hangman(numberCharacters);
+        const word = start_hangman(numberCharacters);
         setHangmanGameStarted(true);
+        setDisplayWord(word)
+    }
+
+    const guess_letter_box = () => {
+        const word = guess_letter(letter);
+        setDisplayWord(word)
+    }
+
+    const handleKeyPress = (event) => {
+        if (event.key === "Enter") {
+            guess_letter_box();
+        }
     }
 
 
@@ -29,6 +43,26 @@ export default function Hangman() {
                 height={256}
                 />
             ) : (<></>)}
+            
+            {displayWord && ( // Conditionally render the word if it exists
+                <div className="displayWord">
+                    <p>{displayWord}</p>
+                </div>
+            )}
+
+            {hangmanGameStarted && (
+            <div className="letterInput">
+                <label htmlFor="letterInput">Guess a letter: </label>
+                <input
+                    type="text"
+                    id="letterInput"
+                    value={letter}
+                    onChange={(e) => setLetter(e.target.value.toUpperCase())} // Ensures uppercase
+                    maxLength={1} // Only one letter can be input
+                />
+                <button onClick={guess_letter_box}>Guess Letter</button>
+            </div>
+            )}
             <div className="gameStart">
                 <label htmlFor="numberDropdown">Number of letters: </label>
                 <select id="numberDropdown"
@@ -47,7 +81,6 @@ export default function Hangman() {
                     <button onClick={() => start_game()}>Start Game</button>
                 ) : (<button onClick={() => start_game()}>Reset Game</button>)}
             </div>
-
         </div>
     );
 }
