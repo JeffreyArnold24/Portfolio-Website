@@ -1,4 +1,60 @@
-.h2 {
+.hangman {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.main_hangman_game {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.hangman_left_section, 
+.hangman_middle_section, 
+.hangman_right_section {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.hangman_left_section, 
+.hangman_middle_section, 
+.hangman_right_section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.letterInput, 
+.messageBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.messageBox {
+    flex: 0 0 200px; 
+    padding: 10px;
+    background-color: lightgray;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+.guessedLetters, .messageBox, .leaderboard {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.letterInput input {
+    margin-right: 10px; /* Space between input and button */
+}
+
+.hangman h2 {
     padding-bottom: 10px;
 }
 

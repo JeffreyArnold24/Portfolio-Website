@@ -13,16 +13,32 @@ export default function Hangman() {
     const [numberCharacters, setNumberCharacters] = useState(3);
     const [letter, setLetter] = useState();
     const [displayWord, setDisplayWord] = useState("");
+    const [displayMessage, setDisplayMessage] = useState("")
 
-    const start_game = () => {
-        const word = start_hangman(numberCharacters);
-        setHangmanGameStarted(true);
-        setDisplayWord(word)
+    const start_game = async () => {
+        const {success, word} = await start_hangman(numberCharacters);
+        console.log(success)
+        if (success){
+            setHangmanGameStarted(true)
+            setDisplayWord(word)
+            setDisplayMessage("")
+        }
+        else
+        {
+            setDisplayMessage(word)
+        }
     }
 
-    const guess_letter_box = () => {
-        const word = guess_letter(letter);
-        setDisplayWord(word)
+    const guess_letter_box = async () => {
+        const {success, word} = await guess_letter(letter);
+        if (success){
+            setDisplayMessage("")
+            setDisplayWord(word)
+        }
+        else
+        {
+            setDisplayMessage(word)
+        }
     }
 
     const handleKeyPress = (event) => {
@@ -33,53 +49,76 @@ export default function Hangman() {
 
 
     return (
+        //Everything in the hangman game
         <div className="hangman">
             <h2>Hangman</h2>
-            {hangmanGameStarted ? (
-                <Image
-                src="/hangman/base.png"
-                alt={"Hangman"}
-                width={256}
-                height={256}
-                />
-            ) : (<></>)}
-            
-            {displayWord && ( // Conditionally render the word if it exists
-                <div className="displayWord">
-                    <p>{displayWord}</p>
-                </div>
-            )}
+            {/* Contains everything in Hangman except the title*/}
+            <div className="main_hangman_game">
+                {/* Contains the Hangman image, word, guess bar, and reset game containers*/}
+                <div className="hangman_left_section">
+                    {hangmanGameStarted ? (
+                        <Image
+                        src="/hangman/base.png"
+                        alt={"Hangman"}
+                        width={256}
+                        height={256}
+                        />
+                    ) : (<></>)}
+                    
+                    {displayWord && ( // Conditionally render the word if it exists
+                        <div className="displayWord">
+                            <h2>{displayWord}</h2>
+                        </div>
+                    )}
 
-            {hangmanGameStarted && (
-            <div className="letterInput">
-                <label htmlFor="letterInput">Guess a letter: </label>
-                <input
-                    type="text"
-                    id="letterInput"
-                    value={letter}
-                    onChange={(e) => setLetter(e.target.value.toUpperCase())} // Ensures uppercase
-                    maxLength={1} // Only one letter can be input
-                />
-                <button onClick={guess_letter_box}>Guess Letter</button>
-            </div>
-            )}
-            <div className="gameStart">
-                <label htmlFor="numberDropdown">Number of letters: </label>
-                <select id="numberDropdown"
-                        value={numberCharacters}  // Bind value to the state
-                        onChange={(e) => setNumberCharacters(Number(e.target.value))}>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-                {!hangmanGameStarted ? (
-                    <button onClick={() => start_game()}>Start Game</button>
-                ) : (<button onClick={() => start_game()}>Reset Game</button>)}
+                    {hangmanGameStarted && ( // If the game is started show inputs
+                    <div className="letterInput">
+                        <label htmlFor="letterInput">Guess a letter: </label>
+                        <input
+                            type="text"
+                            id="letterInput"
+                            value={letter}
+                            onChange={(e) => setLetter(e.target.value.toUpperCase())}
+                            maxLength={1}
+                        />
+                        <button onClick={guess_letter_box}>Guess Letter</button>
+                    </div>
+                    )}
+
+                    {/* Used to set the conditions of the game and start it*/}
+                    <div className="gameStart">
+                        <label htmlFor="numberDropdown">Number of letters: </label>
+                        <select id="numberDropdown"
+                                value={numberCharacters}  // Bind value to the state
+                                onChange={(e) => setNumberCharacters(Number(e.target.value))}>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        {!hangmanGameStarted ? (
+                            <button onClick={() => start_game()}>Start Game</button>
+                        ) : (<button onClick={() => start_game()}>Reset Game</button>)}
+                    </div>
+                </div>
+                {/* Used to display errors*/}
+                <div className = "hangman_middle_section">
+                    <div className="guessedLetters">
+                        <p>letters</p>
+                    </div>
+                    <div className="messageBox">
+                        <p>{displayMessage}</p>
+                    </div>
+                </div>
+                <div className = "hangman_right_section">
+                    <div className="leaderboard">
+                        <p>leaderboard</p>
+                    </div>
+                </div>
             </div>
         </div>
     );
