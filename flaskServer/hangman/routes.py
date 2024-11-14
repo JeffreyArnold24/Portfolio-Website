@@ -42,3 +42,21 @@ def guess_letter():
         "word": word,
     }
     return jsonify(response), 200
+
+"""
+Intercepts an error and formats it as a json to be returned to the client.
+
+:param error: The error that was thrown
+
+:return error: The type of error.
+:return description: A description of what caused the error.
+
+"""
+@app.errorhandler(400)
+def bad_request_error(error):
+    response = jsonify({
+        "error": "Bad Request",
+        "description": error.description
+    })
+    response.status_code = 400
+    return response

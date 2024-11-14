@@ -17,7 +17,6 @@ export default function Hangman() {
 
     const start_game = async () => {
         const {success, word} = await start_hangman(numberCharacters);
-        console.log(success)
         if (success){
             setHangmanGameStarted(true)
             setDisplayWord(word)

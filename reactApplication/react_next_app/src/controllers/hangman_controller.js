@@ -16,6 +16,7 @@ const start_hangman = async(numberCharacters) => {
       }),
     });
 
+    
     const data = await response.json();
     if (response.ok){
       const word = data.word
@@ -23,9 +24,9 @@ const start_hangman = async(numberCharacters) => {
       return {success, word}
     }
     else{
-      const message = data.message
+      const word = data.description
       const success = false
-      return {success, message}
+      return {success, word}
     }
 
 }
@@ -53,9 +54,9 @@ const guess_letter = async(letter) => {
     return {success, word}
   }
   else{
-    const message = data.message
+    const word = data.description
     const success = false
-    return {success, message}
+    return {success, word}
   }
 }
 
