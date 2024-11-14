@@ -44,6 +44,7 @@
   :root {
     --text-color: 0, 0, 0;
     --background-color: 255, 255, 255;
+    border-color: 0, 0, 0;
 
     --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
     --secondary-glow: linear-gradient(
@@ -75,6 +76,7 @@
 [data-theme="dark"]{
   --text-color: 255, 255, 255;
   --background-color: 0, 0, 0;
+  border-color: 255, 255, 255;
 }
 
 * {
