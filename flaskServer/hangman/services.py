@@ -225,7 +225,7 @@ def guess_letter_service(username, authToken, guessedLetter):
         abort(400, description= "Game instance not found.")
 
     # throws an error if the letter was alread guessed
-    if guessedLetter in game_instance.guessedLetters:
+    if guessedLetter.lower() in game_instance.guessedLetters:
         abort(400, description= "Letter already guessed.")
 
     guessedLetters = game_instance.guessedLetters + guessedLetter.lower() 
