@@ -15,10 +15,12 @@ export default function Hangman() {
     const [displayWord, setDisplayWord] = useState("");
     const [displayMessage, setDisplayMessage] = useState("")
     const [guessedLetters, setGuessedLetters] = useState("")
+    const [leaderboard, setLeaderboard] = useState([]);
 
     useEffect(() => {
         const fetchLeaderboard = async() => {
-            get_leaderboard();
+            const leaderboard = await get_leaderboard();
+            setLeaderboard(leaderboard)
         };
 
         fetchLeaderboard();
@@ -128,7 +130,24 @@ export default function Hangman() {
                 </div>
                 <div className = "hangman_right_section">
                     <div className="leaderboard">
-                        <p>leaderboard</p>
+                        <table border="1" style={{ width: "100%", borderCollapse: "collapse" }}>
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Final Word</th>
+                                    <th>Number of Guesses</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {leaderboard.map((entry, index) => (
+                                    <tr key={index}>
+                                        <td>{entry.username}</td>
+                                        <td>{entry.final_word}</td>
+                                        <td>{entry.numberGuesses}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
