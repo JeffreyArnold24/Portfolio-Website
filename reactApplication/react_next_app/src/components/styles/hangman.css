@@ -22,7 +22,10 @@
 .hangman_right_section .leaderboard {
     border: 2px solid;
     padding: 20px;
-    height: 100%; /* Take up the full right section */
+    min-width: 300px;
+    min-height: 300px;
+    max-width: 300px;
+    max-height: 300px;
     box-sizing: border-box;
     border-radius: 5px;
 }
@@ -31,9 +34,7 @@
     border: 2px solid;
     padding: 10px;
     margin-top: 10px;
-    /* Match the size of the image and displayWord sections */
     height: auto; /* Adjusts based on content */
-    visibility: hidden; /* Hidden initially */
 }
 
 .letterInput, 

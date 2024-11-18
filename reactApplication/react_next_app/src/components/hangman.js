@@ -14,6 +14,7 @@ export default function Hangman() {
     const [letter, setLetter] = useState();
     const [displayWord, setDisplayWord] = useState("");
     const [displayMessage, setDisplayMessage] = useState("")
+    const [guessedLetters, setGuessedLetters] = useState("")
 
     const start_game = async () => {
         const {success, word} = await start_hangman(numberCharacters);
@@ -33,16 +34,11 @@ export default function Hangman() {
         if (success){
             setDisplayMessage("")
             setDisplayWord(word)
+            setGuessedLetters(guessedLetters + letter)
         }
         else
         {
             setDisplayMessage(word)
-        }
-    }
-
-    const handleKeyPress = (event) => {
-        if (event.key === "Enter") {
-            guess_letter_box();
         }
     }
 
@@ -79,8 +75,16 @@ export default function Hangman() {
                             value={letter}
                             onChange={(e) => setLetter(e.target.value.toUpperCase())}
                             maxLength={1}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                  guess_letter_box(); // Call the function when Enter is pressed
+                                  setLetter("");
+                                }
+                            }}
                         />
-                        <button onClick={guess_letter_box}>Guess Letter</button>
+                        <button onClick={() => {
+                            guess_letter_box();
+                            setLetter("");}}>Guess Letter</button>
                     </div>
                     )}
 
@@ -107,7 +111,7 @@ export default function Hangman() {
                 {/* Used to display errors*/}
                 <div className = "hangman_middle_section">
                     <div className="guessedLetters">
-                        <p>letters</p>
+                        <p>{guessedLetters}</p>
                     </div>
                     <div className="messageBox">
                         <p>{displayMessage}</p>
