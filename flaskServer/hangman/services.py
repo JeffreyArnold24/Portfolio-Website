@@ -1,6 +1,6 @@
 from flask import abort
 from authentication.services import *
-from .models import HangmanGameInstance
+from .models import HangmanGameInstance, Leaderboard
 from hangman import db
 from hangman import wordList
 from authentication.services import authTokenExists
@@ -16,6 +16,22 @@ Creates an empty word of '_' characters.
 def create_word(numberCharacters):
     return '_' * numberCharacters
 
+
+"""
+Checks if the game was won by not having a '_' char
+in the current word.
+
+:param word: The current state of the known word.
+
+:return: True if there is a '_' char in word and false otherwise.
+
+"""
+def check_win_game(word):
+    if '_' in word:
+        return False
+    return True
+
+
 """
 Checks if the user already has a game instance in the database.
 
@@ -29,6 +45,36 @@ def does_user_have_game(username):
     if game_instance:
         return True
     return False
+
+"""
+Adds a user to the leaderboard database if their number of guesses is low
+enough to be on the leaderboard. There are five entries max.
+
+:param username: The username of the user who finished the hangman game.
+:param new_word: The users word that they guessed.
+:param usedGuesses: The number of guesses that the user used to get to the word.
+
+"""
+def create_user_in_leaderboard(username, new_word, used_guesses):
+    #always adds the entry if there are fewer than 5 entries in the database
+    count = Leaderboard.query.count()
+    if count < 5:
+        new_entry = Leaderboard(username = username, final_word = new_word, number_guesses = used_guesses)
+        db.session.add(new_entry)
+        db.session.commit()
+        return
+    #check if the number of guesses is low enough to end up on the leaderboard
+    #if so, add the entry to the database and delete the entry with the most number of guesses
+    else:
+        max_entry = Leaderboard.query.order_by(Leaderboard.number_guesses.desc()).first()
+
+        if used_guesses < max_entry.number_guesses:
+            # Replace the max entry with the new entry
+            db.session.delete(max_entry)
+            new_entry = Leaderboard(username=username, final_word=new_word, number_guesses=used_guesses)
+            db.session.add(new_entry)
+            db.session.commit()
+    return
 
 
 """
@@ -154,6 +200,7 @@ def run_word_algorithm(letters, word_length, current_word):
                     
         # use the remaining set of words as the dictionary for the next iteration of the for loop         
         possibleWords = word_dic[key_word]
+        print(possibleWords)
 
     
     return key_word
@@ -229,13 +276,31 @@ def guess_letter_service(username, authToken, guessedLetter):
         abort(400, description= "Letter already guessed.")
 
     guessedLetters = game_instance.guessedLetters + guessedLetter.lower() 
+    usedGuesses = game_instance.usedGuesses + 1
     
     # the main algorithm that determines how the guessed letter interacts with the information that we already know
     new_word = run_word_algorithm(guessedLetters, len(game_instance.currentWord), game_instance.currentWord)
 
-    # updates the database with the guessed letter and the current known word
+    # updates the database with the guessed letter the current known word, and the number of guesses used.
     game_instance.guessedLetters = guessedLetters
     game_instance.currentWord = new_word
+    game_instance.usedGuesses = usedGuesses
     db.session.commit()
 
+    if (check_win_game(new_word)):
+        create_user_in_leaderboard(username, new_word, usedGuesses)
+
+
     return new_word
+
+"""
+Retreives a list of users who have played the hangman game
+from the database.
+
+:return A list of usernames, words, and numbers of guesses used for
+        the top five hangman games.
+
+"""
+def get_leaderboard_service():
+    leaderboard = Leaderboard.query.order_by(Leaderboard.number_guesses).all()
+    return leaderboard

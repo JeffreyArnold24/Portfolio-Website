@@ -1,9 +1,9 @@
 "use client";
 
 import styles from './styles/hangman.css'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from 'next/image';
-import { start_hangman, guess_letter } from '@/controllers/hangman_controller';
+import { start_hangman, guess_letter, get_leaderboard } from '@/controllers/hangman_controller';
 
 
 
@@ -15,6 +15,14 @@ export default function Hangman() {
     const [displayWord, setDisplayWord] = useState("");
     const [displayMessage, setDisplayMessage] = useState("")
     const [guessedLetters, setGuessedLetters] = useState("")
+
+    useEffect(() => {
+        const fetchLeaderboard = async() => {
+            get_leaderboard();
+        };
+
+        fetchLeaderboard();
+    }, []);
 
     const start_game = async () => {
         const {success, word} = await start_hangman(numberCharacters);

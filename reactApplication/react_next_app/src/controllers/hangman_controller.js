@@ -60,4 +60,15 @@ const guess_letter = async(letter) => {
   }
 }
 
-export {start_hangman, guess_letter};
+const get_leaderboard = async() => {
+  
+  const response = await fetch("http://localhost:8081/hangman/getLeaderboard", {
+    method: "GET",
+  });
+
+  const data = await response.json();
+  console.log(data)
+
+}
+
+export {start_hangman, guess_letter, get_leaderboard};
