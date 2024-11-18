@@ -30,6 +30,7 @@ export default function Hangman() {
             setHangmanGameStarted(true)
             setDisplayWord(word)
             setDisplayMessage("")
+            setGuessedLetters("")
         }
         else
         {
