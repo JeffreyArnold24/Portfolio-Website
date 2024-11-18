@@ -4,6 +4,7 @@ from .models import HangmanGameInstance, Leaderboard
 from hangman import db
 from hangman import wordList
 from authentication.services import authTokenExists
+from sqlalchemy import text
 
 """
 Creates an empty word of '_' characters.
@@ -302,5 +303,6 @@ from the database.
 
 """
 def get_leaderboard_service():
-    leaderboard = Leaderboard.query.order_by(Leaderboard.number_guesses).all()
-    return leaderboard
+    result = db.session.execute(text("SELECT username, final_word, number_guesses FROM hangman_leaderboard ORDER BY number_guesses ASC;"))
+    rows = result.fetchall()
+    return rows
