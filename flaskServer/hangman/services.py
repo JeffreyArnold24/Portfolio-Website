@@ -105,7 +105,6 @@ def create_key(word, letter, key_word):
                     key = key + key_word[index]
                 else:
                     key = key + '_'
-        print(key, word)
         return key
 
 """
@@ -182,8 +181,6 @@ def run_word_algorithm(letters, word_length, current_word):
             else:
                 word_dic[key] = {word}
         
-        for key in word_dic:
-            print(key)
         # find the key with the most values
         word_dic = filter_dictionary_for_size(word_dic)
         if len(word_dic) > 1:
@@ -205,7 +202,6 @@ def run_word_algorithm(letters, word_length, current_word):
                     
         # use the remaining set of words as the dictionary for the next iteration of the for loop         
         possibleWords = word_dic[key_word]
-        print(possibleWords)
 
     
     return key_word
