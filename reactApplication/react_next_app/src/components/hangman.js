@@ -16,6 +16,7 @@ export default function Hangman() {
     const [displayMessage, setDisplayMessage] = useState("")
     const [guessedLetters, setGuessedLetters] = useState("")
     const [leaderboard, setLeaderboard] = useState([]);
+    const [isGuessButtonDisabled, setIsGuessButtonDisabled] = useState(false);
 
     useEffect(() => {
         const fetchLeaderboard = async() => {
@@ -41,16 +42,21 @@ export default function Hangman() {
     }
 
     const guess_letter_box = async () => {
-        const {success, word} = await guess_letter(letter);
-        if (success){
-            setDisplayMessage("")
-            setDisplayWord(word)
-            setGuessedLetters(guessedLetters + letter)
+        if (!isGuessButtonDisabled) {
+            setIsGuessButtonDisabled(true)
+            const {success, word} = await guess_letter(letter);
+            if (success){
+                setDisplayMessage("")
+                setDisplayWord(word)
+                setGuessedLetters(guessedLetters + letter)
+            }
+            else
+            {
+                setDisplayMessage(word)
+            }
+            setIsGuessButtonDisabled(false)
         }
-        else
-        {
-            setDisplayMessage(word)
-        }
+
     }
 
 
