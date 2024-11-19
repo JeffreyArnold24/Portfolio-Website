@@ -68,7 +68,6 @@ def create_user_in_leaderboard(username, new_word, used_guesses):
     #if so, add the entry to the database and delete the entry with the most number of guesses
     else:
         max_entry = Leaderboard.query.order_by(Leaderboard.number_guesses.desc()).first()
-
         if used_guesses < max_entry.number_guesses:
             # Replace the max entry with the new entry
             db.session.delete(max_entry)

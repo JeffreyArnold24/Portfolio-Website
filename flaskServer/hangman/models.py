@@ -11,7 +11,8 @@ class HangmanGameInstance(db.Model):
 class Leaderboard(db.Model):
     __tablename__ = 'hangman_leaderboard'
 
-    username = db.Column(db.Text, primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.Text, nullable=False)
     final_word = db.Column(db.Text, nullable=False)
     number_guesses = db.Column(db.Integer, nullable=False)
     
