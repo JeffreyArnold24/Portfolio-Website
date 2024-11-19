@@ -105,6 +105,7 @@ def create_key(word, letter, key_word):
                     key = key + key_word[index]
                 else:
                     key = key + '_'
+        print(key, word)
         return key
 
 """
@@ -158,7 +159,8 @@ according to the letters that have been guessed.
 
 """
 def run_word_algorithm(letters, word_length, current_word):
-    key_word = current_word
+    #key_word = current_word
+    key_word = create_word(len(current_word)) 
     possibleWords = wordList
 
     # for each letter, determine what the hardest set of words would be
@@ -180,6 +182,8 @@ def run_word_algorithm(letters, word_length, current_word):
             else:
                 word_dic[key] = {word}
         
+        for key in word_dic:
+            print(key)
         # find the key with the most values
         word_dic = filter_dictionary_for_size(word_dic)
         if len(word_dic) > 1:
