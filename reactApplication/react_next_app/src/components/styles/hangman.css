@@ -71,10 +71,11 @@
 
 .leaderboard {
     padding: 5px;
+    padding-bottom: 50px;
     min-width: 300px;
-    min-height: 300px;
+    min-height: 250px;
     max-width: 300px;
-    max-height: 300px;
+    max-height: 250px;
     border: 2px solid;
     border-radius: 5px;
     justify-content: center; /* Center table horizontally */
@@ -100,7 +101,7 @@
 
 .hangman_right_section .leaderboard th,
 .hangman_right_section .leaderboard td {
-    padding: 5px; /* Adjust padding inside cells */
+    padding: 2px; /* Adjust padding inside cells */
     text-align: center;
     border: 1px solid; /* Match the table cell borders */
     box-sizing: border-box; /* Ensure content fits */
