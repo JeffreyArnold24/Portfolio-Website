@@ -1,3 +1,4 @@
+/* For all of hangman */
 .hangman {
     display: flex;
     flex-direction: column;
@@ -5,12 +6,14 @@
     width: 100%;
 }
 
+/* For everything except the title */
 .main_hangman_game {
     display: flex;
     width: 100%;
     justify-content: space-between;
 }
 
+/* seperates the hangman game into three columns */
 .hangman_left_section, 
 .hangman_middle_section, 
 .hangman_right_section {
@@ -19,43 +22,106 @@
     box-sizing: border-box;
 }
 
-.hangman_right_section .leaderboard {
-    border: 2px solid;
-    padding: 20px;
-    min-width: 300px;
-    min-height: 300px;
-    max-width: 300px;
-    max-height: 300px;
-    box-sizing: border-box;
-    border-radius: 5px;
+.displayWord h2 {
+    margin-bottom: 10px;
 }
 
-.hangman_middle_section .guessedLetters {
-    border: 2px solid;
-    padding: 10px;
-    margin-top: 10px;
-    height: auto; /* Adjusts based on content */
-}
-
-.letterInput, 
-.messageBox {
+.letterInput {
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.messageBox {
-    flex: 0 0 200px; 
-    padding: 10px;
-    border-radius: 4px;
+.letterInput button {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .letterInput input {
     margin-right: 10px; /* Space between input and button */
 }
 
-.hangman h2 {
-    padding-bottom: 10px;
+.hangman_middle_section{
+    padding: 10px;
+    margin-top: 10px;
+    height: auto; /* Adjusts based on content */
+}
+
+.guessedLetters {
+    border: 2px solid;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 200px;
+}
+
+.messageBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 200px; 
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.hangman_right_section{
+    box-sizing: border-box; 
+    display: flex; /* Ensure proper table alignment */
+}
+
+.leaderboard {
+    padding: 5px;
+    min-width: 300px;
+    min-height: 300px;
+    max-width: 300px;
+    max-height: 300px;
+    border: 2px solid;
+    border-radius: 5px;
+    justify-content: center; /* Center table horizontally */
+    align-items: center; /* Center table vertically */
+    overflow: hidden; /* Prevent overflow if table content exceeds bounds */
+}
+
+.hangman_right_section .leaderboard h2 {
+    text-align: center; /* Center the title */
+    margin-bottom: 10px; /* Add spacing below the title */
+    font-size: 1.5em; /* Adjust the font size to make it prominent */
+    font-weight: bold; /* Make the text bold for emphasis */
+    border-bottom: 2px solid #ddd; /* Add an underline for separation */
+    padding-bottom: 5px; /* Space between text and underline */
+}
+
+.hangman_right_section .leaderboard table {
+    width: 100%; /* Take full width of the container */
+    height: 100%; /* Take full height of the container */
+    border-collapse: collapse; /* Remove gaps between table cells */
+    box-sizing: border-box; /* Ensure borders are accounted for */
+}
+
+.hangman_right_section .leaderboard th,
+.hangman_right_section .leaderboard td {
+    padding: 5px; /* Adjust padding inside cells */
+    text-align: center;
+    border: 1px solid; /* Match the table cell borders */
+    box-sizing: border-box; /* Ensure content fits */
+}
+
+.hangman_right_section .leaderboard th {
+    background-color: rgb(var(--background-color2)); /* Optional: Highlight header row */
+    font-weight: bold;
+}
+
+/* Set specific widths for each column */
+.leaderboard .username-column {
+    width: 30%; /* Adjust this value as needed */
+}
+
+.leaderboard .final-word-column {
+    width: 50%; /* Adjust this value as needed */
+}
+
+.leaderboard .guesses-column {
+    width: 20%; /* Adjust this value as needed */
 }
 
 select {

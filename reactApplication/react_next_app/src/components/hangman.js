@@ -62,14 +62,14 @@ export default function Hangman() {
             <div className="main_hangman_game">
                 {/* Contains the Hangman image, word, guess bar, and reset game containers*/}
                 <div className="hangman_left_section">
-                    {hangmanGameStarted ? (
+                    {hangmanGameStarted && (
                         <Image
                         src="/hangman/base.png"
                         alt={"Hangman"}
                         width={256}
                         height={256}
                         />
-                    ) : (<></>)}
+                    )}
                     
                     {displayWord && ( // Conditionally render the word if it exists
                         <div className="displayWord">
@@ -119,17 +119,23 @@ export default function Hangman() {
                         ) : (<button onClick={() => start_game()}>Reset Game</button>)}
                     </div>
                 </div>
-                {/* Used to display errors*/}
+                {/* Used to display information for the user*/}
+                
                 <div className = "hangman_middle_section">
+                    {/* Letters the user has guessed*/}
+                    {hangmanGameStarted && (
                     <div className="guessedLetters">
                         <p>{guessedLetters}</p>
                     </div>
+                    )}
+                    {/*Information such as guessing a duplicate letter or a server error*/}
                     <div className="messageBox">
-                        <p>{displayMessage}</p>
+                        <h3>{displayMessage}</h3>
                     </div>
                 </div>
                 <div className = "hangman_right_section">
                     <div className="leaderboard">
+                        <h2>Leaderboard</h2>
                         <table border="1" style={{ width: "100%", borderCollapse: "collapse" }}>
                             <thead>
                                 <tr>

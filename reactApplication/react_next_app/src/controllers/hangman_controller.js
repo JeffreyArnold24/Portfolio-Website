@@ -19,12 +19,13 @@ const start_hangman = async(numberCharacters) => {
     
     const data = await response.json();
     if (response.ok){
-      const word = data.word
+      var word = data.word
+      word = word.split('').join(' '); //Adds space in between each character to make it more distinguishable
       const success = true
       return {success, word}
     }
     else{
-      const word = data.description
+      var word = data.description
       const success = false
       return {success, word}
     }
@@ -49,12 +50,13 @@ const guess_letter = async(letter) => {
 
   const data = await response.json();
   if (response.ok){
-    const word = data.word
+    var word = data.word
+    word = word.split('').join(' '); //Adds space in between each character to make it more distinguishable
     const success = true
     return {success, word}
   }
   else{
-    const word = data.description
+    var word = data.description
     const success = false
     return {success, word}
   }
@@ -67,7 +69,6 @@ const get_leaderboard = async() => {
   });
 
   const data = await response.json();
-  console.log(data)
   return data
 
 }
