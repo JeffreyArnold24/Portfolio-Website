@@ -49,12 +49,18 @@ export default function Hangman() {
                 setDisplayMessage("")
                 setDisplayWord(word)
                 setGuessedLetters(guessedLetters + letter)
+                setIsGuessButtonDisabled(false)
+                if (!word.includes('_')){
+                    setDisplayMessage("You won in " + (guessedLetters.length + 1) + " turns!")
+                    setIsGuessButtonDisabled(true)
+                }
             }
             else
             {
                 setDisplayMessage(word)
+                setIsGuessButtonDisabled(false)
             }
-            setIsGuessButtonDisabled(false)
+            
         }
 
     }
