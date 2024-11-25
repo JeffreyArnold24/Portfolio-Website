@@ -4,6 +4,7 @@ import styles from './styles/hangman.css'
 import { useState, useEffect } from "react";
 import Image from 'next/image';
 import { start_hangman, guess_letter, get_leaderboard } from '@/controllers/hangman_controller';
+import Accordion from './accordion';
 
 
 
@@ -168,6 +169,9 @@ export default function Hangman() {
                         </table>
                     </div>
                 </div>
+            </div>
+            <div className ="hangmanDescription">
+                <Accordion description = "Description" />
             </div>
         </div>
     );

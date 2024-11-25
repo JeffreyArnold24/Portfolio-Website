@@ -1,0 +1,36 @@
+.Accordion {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.AccordionTitle {
+    display: flex;
+    justify-content: space-between; /* Align text and icons inline */
+    align-items: center; /* Vertically center the content */
+    padding: 10px 15px;
+    background-color: #f4f4f4; /* Change to your desired color */
+    cursor: pointer; /* Make the title clickable */
+    border-bottom: 1px solid #ddd;
+}
+
+.AccordionTitle p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.AccordionPlusMinusIcon {
+    font-size: 20px;
+    color: #666;
+}
+
+.Description {
+    padding: 15px;
+    background-color: #fff;
+    width: 100vw; /* Make it span the full width of the viewport */
+    box-sizing: border-box; /* Include padding in width calculation */
+    color: #333;
+}
