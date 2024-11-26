@@ -33,4 +33,5 @@
     width: 100vw; /* Make it span the full width of the viewport */
     box-sizing: border-box; /* Include padding in width calculation */
     color: #333;
+    line-height: 1.4;
 }

@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Image from 'next/image';
 import { start_hangman, guess_letter, get_leaderboard } from '@/controllers/hangman_controller';
 import Accordion from './accordion';
+import { componentDescriptions } from '@/constants/descriptions_constants';
 
 
 
@@ -18,6 +19,7 @@ export default function Hangman() {
     const [guessedLetters, setGuessedLetters] = useState("")
     const [leaderboard, setLeaderboard] = useState([]);
     const [isGuessButtonDisabled, setIsGuessButtonDisabled] = useState(false);
+    const description = componentDescriptions.hangman
 
     useEffect(() => {
         const fetchLeaderboard = async() => {
@@ -171,7 +173,7 @@ export default function Hangman() {
                 </div>
             </div>
             <div className ="hangmanDescription">
-                <Accordion description = "Description" />
+                <Accordion description = {description} />
             </div>
         </div>
     );
