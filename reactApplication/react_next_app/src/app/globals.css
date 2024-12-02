@@ -81,6 +81,10 @@
   border-color: 255, 255, 255;
 }
 
+[data-theme="dark"] img.invertible {
+  filter: invert(1);
+}
+
 * {
   box-sizing: border-box;
   padding: 0;

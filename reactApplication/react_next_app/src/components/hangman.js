@@ -99,6 +99,7 @@ export default function Hangman() {
                         alt={"Hangman"}
                         width={256}
                         height={256}
+                        className='invertible'
                         />
                     )}
                     
