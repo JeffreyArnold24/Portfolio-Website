@@ -2,47 +2,100 @@
 
 import styles from "./welcome_page_stylesheet.css";
 import Toolbar from "@/components/top_toolbar";
+import { useState, useEffect } from "react";
+import {handleLoginSubmit, handleLogoutSubmit} from "@/controllers/login_controller.js"
+import { componentDescriptions } from "@/constants/descriptions_constants";
+import Accordion from "@/components/accordion";
 
-export default function Home() {
+export default function WelcomePage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [authToken, setAuthToken] = useState(null);
+  const selfDescription = componentDescriptions.aboutMe
+  const signInDescription = componentDescriptions.signIn
+
+  useEffect(() => {
+    // Check for authToken in local storage when the component mounts
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      setAuthToken(token); // Set authToken if it exists
+    }
+  }, []);
+
+  const onLoginSubmit = async (e) => {
+    e.preventDefault();
+    const {success, message} = await handleLoginSubmit(e, username, password);
+    if (success) {
+      setErrorMessage("");
+      window.location.reload();
+    } else {
+      setErrorMessage(message);
+    }
+  }
+
+  const onLogoutSubmit = async (e) => {
+    e.preventDefault();
+    const {success, message} = await handleLogoutSubmit(e, localStorage.getItem("username"), localStorage.getItem("authToken"));
+    if (success) {
+      setErrorMessage("");
+      window.location.reload();
+    } else {
+      setErrorMessage(message)
+    }
+  }
 
   return (
-    <div className="main-container">
+    <div className="welcome-main-container">
     <div><Toolbar /></div>
     {/* Title Section */}
-      <div className="title-section">
+      <div className="welcome-title-section">
         <h1>Welcome to the Portfolio of</h1>
         <h1>Jeffrey Arnold</h1>
       </div>
 
       {/* Description and Sign-In Section */}
-      <div className="secondary-section">
+      <div className="welcome-secondary-section">
         {/* Description Section on the left */}
-        <div className="description-section">
-          <div className="main_info-section">
-            <p>My name is Jeffrey Arnold. I have created this website to 
-              showcase some projects that I have been working on. 
-              I am going to ask you to create an account so that I can
-              link items in the databases. I delete each
-              user and everything related to them each night because
-              this is only meant for demonstration.</p>
+        <div className="welcome-description-section">
+          <div className="welcome-main_info-section">
+            <p>{selfDescription.split('\n').map((line, index) => (
+                <div key={index}>
+                    {line}
+                </div>
+                ))}</p>
           </div>
-          <div className="link-section">
+          <div className="welcome-link-section">
             <p>Email: jeffarnold02@gmail.com</p>
             <a href="https://github.com/JeffreyArnold24/reactApplication">Source Files</a>
           </div>
         </div>
 
         {/* Sign-in Section on the right */}
-        <div className="sign-in-section">
-          <div className="sing-in-title">
-            <h2>Sign In</h2>
+        <div className="welcome-sign-in-section">
+          {authToken ? (
+            <div>
+              <p>You are signed in.</p>
+              <button type="submit" onClick={onLogoutSubmit}>Sign Out</button>
+              {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Conditionally display the error message */}
+            </div>
+          ) : (
+          <div>
+            <div className="welcome-sign-in-title">
+              <h2>Sign In</h2>
+            </div>
+            <form onSubmit={(e) => onLoginSubmit(e)}>
+              <input type="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
+              <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+              {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Conditionally display the error message */}
+              <button type="submit">Sign In</button>
+            </form>
           </div>
-          <form>
-            <input type="username" placeholder="Username" />
-            <input type="password" placeholder="Password" />
-            <button type="submit">Sign In</button>
-          </form>
+          )}
         </div>
+      </div>
+      <div className = "sign-in-description">
+        <Accordion description={signInDescription}/>
       </div>
     </div>
   );

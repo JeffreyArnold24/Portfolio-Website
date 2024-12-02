@@ -44,6 +44,8 @@
   :root {
     --text-color: 0, 0, 0;
     --background-color: 255, 255, 255;
+    --background-color2: #f4f4f4;
+    border-color: 0, 0, 0;
 
     --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
     --secondary-glow: linear-gradient(
@@ -75,24 +77,18 @@
 [data-theme="dark"]{
   --text-color: 255, 255, 255;
   --background-color: 0, 0, 0;
+  --background-color2: #141414;
+  border-color: 255, 255, 255;
+}
+
+[data-theme="dark"] img.invertible {
+  filter: invert(1);
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-}
-
-html,
-body {
-  padding-top: 60px;
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: rgb(var(--text-color));
-  background: rgb(var(--background-color));
 }
 
 a {

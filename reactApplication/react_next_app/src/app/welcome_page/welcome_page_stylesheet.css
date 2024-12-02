@@ -1,96 +1,80 @@
-.main-container {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    padding: 20px;
-  }
+.welcomepage-main-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 20px;
+}
 
-  .title-section {
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: x-large;
-  }
+.welcome-title-section {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: x-large;
+}
 
-  .secondary-section {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 900px;
-    align-self: center;
-  }
+.welcome-secondary-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  max-width: 80%;
+  margin: 0 auto;
+}
 
-  .description-section {
-    flex: 1;
-    background-color: rgba(211, 211, 211, 0.61);
-    padding: 20px;
-    margin-right: 10px;
-  }
+.welcome-description-section {
 
-  .main-info-section{
-    position: absolute;
-  }
+  background-color: rgba(211, 211, 211, 0.61);
+  padding: 20px;
+  max-width: 30%;
+  min-height: 250px;
+  display: "block";  
+  line-height: 1.2;
+}
 
-  .link-section{
-    position: relative;
-    text-align: right;
-    bottom: 0;
-  }
+.welcome-main-info-section{
+  position: absolute;
+}
 
-  .sign-in-section {
-    flex: 1;
-    background-color: rgba(100, 100, 100, 0.61);
-    padding: 20px;
-    margin-left: 10px;
-  }
+.welcome-link-section{
+  position: relative;
+  text-align: right;
+  padding-top: 20px;
+  bottom: 0;
+}
 
-  .sing-in-title {
-    margin-bottom: 5px;
-  }
+.welcome-sign-in-section {
+  flex: 1;
+  background-color: rgba(100, 100, 100, 0.61);
+  padding: 20px;
+  max-width: 30%;
+  min-height: 250px;
+}
 
-  form {
-    display: flex;
-    flex-direction: column;
-  }
+.welcome-sign-in-title {
+  margin-bottom: 10px;
+}
 
-  input {
-    margin-bottom: 10px;
-    padding: 10px;
-    font-size: 16px;
-    background-color: rgba(255, 255, 255, 0.5);
-  }
+form {
+  display: flex;
+  flex-direction: column;
+}
 
-  button {
-    padding: 10px;
-    background-color: #0070f3;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
+input {
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
 
-  button:hover {
-    background-color: #005bb5;
-  }
+html,
+body {
+  padding-top: 50px;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
 
-  a:link {
-    color: blue;
-    background-color: transparent;
-    text-decoration: none;
-  }
+body {
+  color: rgb(var(--text-color));
+  background: rgb(var(--background-color));
+}
+
   
-  a:visited {
-    color: blue;
-    background-color: transparent;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    color: red;
-    background-color: transparent;
-    text-decoration: underline;
-  }
-  
-  a:active {
-    color: red;
-    background-color: transparent;
-    text-decoration: underline;
-  }
