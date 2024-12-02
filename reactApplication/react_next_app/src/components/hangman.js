@@ -19,8 +19,11 @@ export default function Hangman() {
     const [guessedLetters, setGuessedLetters] = useState("")
     const [leaderboard, setLeaderboard] = useState([]);
     const [isGuessButtonDisabled, setIsGuessButtonDisabled] = useState(false);
+    const [hangmanStage, setHangmanStage] = useState(0);
+    const hangmanImage = `hangman${hangmanStage}`
     const description = componentDescriptions.hangman
 
+    {/*On page load, fetches and sets the leaderboard for hangman.*/}
     useEffect(() => {
         const fetchLeaderboard = async() => {
             const leaderboard = await get_leaderboard();
@@ -30,6 +33,7 @@ export default function Hangman() {
         fetchLeaderboard();
     }, []);
 
+    {/*Initializes the hangman game.*/}
     const start_game = async () => {
         const {success, word} = await start_hangman(numberCharacters);
         if (success){
@@ -37,6 +41,7 @@ export default function Hangman() {
             setDisplayWord(word)
             setDisplayMessage("")
             setGuessedLetters("")
+            setHangmanStage(0)
         }
         else
         {
@@ -44,12 +49,23 @@ export default function Hangman() {
         }
     }
 
+    {/*Tells the player they lost after 6 incorrect guesses.*/}
+    useEffect(() => {
+        if (hangmanStage === 6) {
+            setDisplayMessage("You lose! Keep playing though to try and guess the word.");
+        }
+    }, [hangmanStage]);
+
+    {/*Updates the hangman game based on a guessed letter.*/}
     const guess_letter_box = async () => {
         if (!isGuessButtonDisabled) {
             setIsGuessButtonDisabled(true)
             const {success, word} = await guess_letter(letter);
             if (success){
                 setDisplayMessage("")
+                if (word == displayWord && hangmanStage < 6){
+                    setHangmanStage(hangmanStage + 1)
+                }
                 setDisplayWord(word)
                 setGuessedLetters(guessedLetters + letter)
                 setIsGuessButtonDisabled(false)
@@ -79,7 +95,7 @@ export default function Hangman() {
                 <div className="hangman_left_section">
                     {hangmanGameStarted && (
                         <Image
-                        src="/hangman/base.png"
+                        src={`/hangman/${hangmanImage}.png`}
                         alt={"Hangman"}
                         width={256}
                         height={256}

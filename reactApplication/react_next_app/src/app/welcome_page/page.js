@@ -4,12 +4,16 @@ import styles from "./welcome_page_stylesheet.css";
 import Toolbar from "@/components/top_toolbar";
 import { useState, useEffect } from "react";
 import {handleLoginSubmit, handleLogoutSubmit} from "@/controllers/login_controller.js"
+import { componentDescriptions } from "@/constants/descriptions_constants";
+import Accordion from "@/components/accordion";
 
 export default function WelcomePage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [authToken, setAuthToken] = useState(null);
+  const selfDescription = componentDescriptions.aboutMe
+  const signInDescription = componentDescriptions.signIn
 
   useEffect(() => {
     // Check for authToken in local storage when the component mounts
@@ -55,12 +59,11 @@ export default function WelcomePage() {
         {/* Description Section on the left */}
         <div className="welcome-description-section">
           <div className="welcome-main_info-section">
-            <p>My name is Jeffrey Arnold. I have created this website to 
-              showcase some projects that I have been working on. 
-              I am going to ask you to create an account so that I can
-              link items in the databases. I delete each
-              user and everything related to them each night because
-              this is only meant for demonstration.</p>
+            <p>{selfDescription.split('\n').map((line, index) => (
+                <div key={index}>
+                    {line}
+                </div>
+                ))}</p>
           </div>
           <div className="welcome-link-section">
             <p>Email: jeffarnold02@gmail.com</p>
@@ -90,6 +93,9 @@ export default function WelcomePage() {
           </div>
           )}
         </div>
+      </div>
+      <div className = "sign-in-description">
+        <Accordion description={signInDescription}/>
       </div>
     </div>
   );

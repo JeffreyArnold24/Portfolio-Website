@@ -21,11 +21,13 @@
 }
 
 .welcome-description-section {
-  flex: 1;
+
   background-color: rgba(211, 211, 211, 0.61);
   padding: 20px;
   max-width: 30%;
   min-height: 250px;
+  display: "block";  
+  line-height: 1.2;
 }
 
 .welcome-main-info-section{

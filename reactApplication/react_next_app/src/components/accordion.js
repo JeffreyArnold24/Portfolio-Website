@@ -36,6 +36,8 @@ export default function Accordion({description}){
                             ))}
                             {blockIndex < description.split('\n\n').length - 1 && (
                                 <>
+                                <br />
+                                <br />
                                 <hr />
                                 <br />
                                 </>
