@@ -1,7 +1,7 @@
 # Accordion
 This is a component that expands when the user clicks on it to reveal further information. It is primarily used to keep the descriptions of different features on the site.
 
-# Dark_Theme_Toggle_Button
+# Dark Theme Toggle Button
 This is just the button used on the site to switch between the light and dark themes.
 
 # Hangman
