@@ -1,0 +1,54 @@
+services:
+  nextjs:
+    build:
+      context: .
+      dockerfile: Docker/reactDocker/Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    depends_on:
+      - springboot-app
+      - flask-app
+
+  springboot-app:
+    build:
+      context: .  
+      dockerfile: Docker/springbootDocker/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=production
+    networks:
+      - app-network
+    volumes:
+      - sqlite-db:/app/sqlite_database
+
+  flask-app:
+    build:
+      context: .
+      dockerfile: Docker/flaskDocker/Dockerfile
+    ports:
+      - "8081:8081"
+      - "8082:8082"
+    networks:
+      - app-network
+    volumes:
+      - sqlite-db:/app/sqlite_database
+
+  db-init:
+    build:
+      context: .
+      dockerfile: Docker/sqliteDocker/Dockerfile
+    volumes:
+      - sqlite-db:/app/sqlite_database
+    depends_on:
+      - springboot-app
+      - flask-app
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  sqlite-db:

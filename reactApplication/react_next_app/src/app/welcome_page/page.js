@@ -47,8 +47,8 @@ export default function WelcomePage() {
 
   return (
     <div className="welcome-main-container">
-    <div><Toolbar /></div>
-    {/* Title Section */}
+      <div><Toolbar /></div>
+      {/* Title Section */}
       <div className="welcome-title-section">
         <h1>Welcome to the Portfolio of</h1>
         <h1>Jeffrey Arnold</h1>
@@ -59,11 +59,11 @@ export default function WelcomePage() {
         {/* Description Section on the left */}
         <div className="welcome-description-section">
           <div className="welcome-main_info-section">
-            <p>{selfDescription.split('\n').map((line, index) => (
+            <div>{selfDescription.split('\n').map((line, index) => (
                 <div key={index}>
                     {line}
                 </div>
-                ))}</p>
+                ))}</div>
           </div>
           <div className="welcome-link-section">
             <p>Email: jeffarnold02@gmail.com</p>

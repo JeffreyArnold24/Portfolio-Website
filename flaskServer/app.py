@@ -6,5 +6,5 @@ from authentication import app as authApp
 CORS(hangmanApp, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 if __name__ == '__main__':
-    hangmanApp.run(debug=True, port=8081)
-    authApp.run(debug=True, port=8082)
+    hangmanApp.run(debug=False, host="0.0.0.0", port=8081)
+    authApp.run(debug=False, host="0.0.0.0", port=8082)

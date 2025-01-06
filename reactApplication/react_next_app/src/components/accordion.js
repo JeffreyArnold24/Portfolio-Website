@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, React } from "react";
+import React, { useState} from "react";
 import { Collapse } from "react-collapse";
 import { AiOutlineMinus, AiOutlinePlus} from "react-icons/ai"
 import styles from "./styles/accordion.css"
@@ -22,28 +22,26 @@ export default function Accordion({description}){
                     {isOpen ? <AiOutlineMinus/> : <AiOutlinePlus/>}
                 </div>
             </div>
-            <Collapse isOpened = {isOpen}>
-                <div className = "Description">
+            <Collapse isOpened={isOpen}>
+                <div className="Description">
                     {description.split('\n\n').map((block, blockIndex) => (
                         <span key={blockIndex}>
                             {block.split('\n').map((line, lineIndex) => (
-
-                                <>
+                                <React.Fragment key={`${blockIndex}-${lineIndex}`}>
                                     <span>{line}</span>
                                     {lineIndex < block.split('\n').length - 1 ? <br /> : null}
-                                </>
-
+                                </React.Fragment>
                             ))}
                             {blockIndex < description.split('\n\n').length - 1 && (
                                 <>
-                                <br />
-                                <br />
-                                <hr />
-                                <br />
+                                    <br />
+                                    <br />
+                                    <hr />
+                                    <br />
                                 </>
-                                )}
-                        </span>))
-                    }
+                            )}
+                        </span>
+                    ))}
                 </div>
             </Collapse>
         </div>
