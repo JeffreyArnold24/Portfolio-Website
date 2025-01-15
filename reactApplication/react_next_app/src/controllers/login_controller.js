@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 const handleLoginSubmit = async (e, username, password) => {
     e.preventDefault();
-    var url = NEXT_PUBLIC_URL
+    var url = process.env.NEXT_PUBLIC_URL
     const response = await fetch(url + ":8080/login", {
       method: "POST",
       headers: {
@@ -35,7 +35,7 @@ const handleLoginSubmit = async (e, username, password) => {
 
   const handleLogoutSubmit = async (e, username, authToken) => {
     e.preventDefault();
-    var url = NEXT_PUBLIC_URL
+    var url = process.env.NEXT_PUBLIC_URL
     const response = await fetch(url + ":8080/logout", {
       method: "POST",
       headers: {
