@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 
 const handleLoginSubmit = async (e, username, password) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:8080/login", {
+    var url = NEXT_PUBLIC_URL
+    const response = await fetch(url + ":8080/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +35,8 @@ const handleLoginSubmit = async (e, username, password) => {
 
   const handleLogoutSubmit = async (e, username, authToken) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:8080/logout", {
+    var url = NEXT_PUBLIC_URL
+    const response = await fetch(url + ":8080/logout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
