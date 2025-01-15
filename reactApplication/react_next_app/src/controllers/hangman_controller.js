@@ -4,7 +4,7 @@ const start_hangman = async(numberCharacters) => {
     const username = localStorage.getItem('username')
     const authToken = localStorage.getItem('authToken')
     const numberChars = numberCharacters
-    var url = NEXT_PUBLIC_URL
+    var url = process.env.NEXT_PUBLIC_URL
     const response = await fetch(url + ":8081/hangman/starthangman", {
       method: "POST",
       headers: {
@@ -37,7 +37,7 @@ const guess_letter = async(letter) => {
   const username = localStorage.getItem('username')
   const authToken = localStorage.getItem('authToken')
   const guessedLetter = letter
-  var url = NEXT_PUBLIC_URL
+  var url = process.env.NEXT_PUBLIC_URL
     const response = await fetch(url + ":8081/hangman/guessletter", {
     method: "POST",
     headers: {
@@ -67,7 +67,7 @@ const guess_letter = async(letter) => {
 const get_leaderboard = async() => {
   
 
-  var url = NEXT_PUBLIC_URL
+  var url = process.env.NEXT_PUBLIC_URL
     const response = await fetch(url + ":8081/hangman/getLeaderboard", {
     method: "GET",
   });
