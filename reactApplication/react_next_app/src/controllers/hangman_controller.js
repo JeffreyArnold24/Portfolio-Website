@@ -5,7 +5,8 @@ const start_hangman = async(numberCharacters) => {
     const authToken = localStorage.getItem('authToken')
     const numberChars = numberCharacters
     var url = process.env.NEXT_PUBLIC_URL
-    const response = await fetch(url + ":8081/hangman/starthangman", {
+    var port = process.env.NEXT_PUBLIC_HANGMAN_PORT
+    const response = await fetch(url + port + "/hangman/starthangman", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,7 +39,8 @@ const guess_letter = async(letter) => {
   const authToken = localStorage.getItem('authToken')
   const guessedLetter = letter
   var url = process.env.NEXT_PUBLIC_URL
-    const response = await fetch(url + ":8081/hangman/guessletter", {
+  var port = process.env.NEXT_PUBLIC_HANGMAN_PORT
+    const response = await fetch(url + port +  "/hangman/guessletter", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -68,7 +70,8 @@ const get_leaderboard = async() => {
   
 
   var url = process.env.NEXT_PUBLIC_URL
-    const response = await fetch(url + ":8081/hangman/getLeaderboard", {
+  var port = process.env.NEXT_PUBLIC_HANGMAN_PORT
+    const response = await fetch(url + port + "/hangman/getLeaderboard", {
     method: "GET",
   });
 
