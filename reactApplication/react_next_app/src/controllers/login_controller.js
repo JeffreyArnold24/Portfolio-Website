@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 const handleLoginSubmit = async (e, username, password) => {
     e.preventDefault();
     var url = process.env.NEXT_PUBLIC_URL
-    const response = await fetch(url + ":8080/login", {
+    var port = process.env.NEXT_PUBLIC_SPRINGBOOT_PORT
+    const response = await fetch(url + port + "/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +37,7 @@ const handleLoginSubmit = async (e, username, password) => {
   const handleLogoutSubmit = async (e, username, authToken) => {
     e.preventDefault();
     var url = process.env.NEXT_PUBLIC_URL
-    const response = await fetch(url + ":8080/logout", {
+    const response = await fetch(url + port + "/logout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

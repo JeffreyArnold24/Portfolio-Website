@@ -6,7 +6,7 @@ from authentication import app as authApp
 
 
 CORS(hangmanApp, resources={r"/*": {"origins": "http://localhost:3000"}})
-CORS(hangmanApp, resources={r"/*": {"origins": "http://jeffreyarnoldportfolio.com"}})
+CORS(hangmanApp, resources={r"/*": {"origins": "https://jeffreyarnoldportfolio.com"}})
 
 if __name__ == '__main__':
     sslify = SSLify(hangmanApp)
