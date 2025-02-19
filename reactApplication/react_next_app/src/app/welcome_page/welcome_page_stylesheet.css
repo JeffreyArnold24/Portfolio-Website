@@ -34,13 +34,6 @@
   position: absolute;
 }
 
-.welcome-link-section{
-  position: relative;
-  text-align: right;
-  padding-top: 20px;
-  bottom: 0;
-}
-
 .welcome-sign-in-section {
   flex: 1;
   background-color: rgba(100, 100, 100, 0.61);

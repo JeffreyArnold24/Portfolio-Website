@@ -46,6 +46,14 @@ export default function Toolbar() {
           </div>
         )}
 
+        <div className = 'email'>
+          <p>jeffarnold02@gmail.com</p>
+        </div>
+
+        <div className = 'source_files_link'>
+          <a href="https://github.com/JeffreyArnold24//Portfolio-Website">Source Files</a>
+        </div>
+
         <div className='dark_theme_button'>
           <ThemeToggle />
         </div>

@@ -65,10 +65,6 @@ export default function WelcomePage() {
                 </div>
                 ))}</div>
           </div>
-          <div className="welcome-link-section">
-            <p>Email: jeffarnold02@gmail.com</p>
-            <a href="https://github.com/JeffreyArnold24/reactApplication">Source Files</a>
-          </div>
         </div>
 
         {/* Sign-in Section on the right */}
