@@ -1,19 +1,19 @@
 .Accordion {
-    border: 1px solid;
-    border-radius: 5px;
-    width: 95vw;
-    margin: 10px;
-    overflow: hidden;
+    padding: 10px;
+    margin: auto;
 }
 
 .AccordionTitle {
+    width: 20vw;
     display: flex;
     justify-content: space-between; /* Align text and icons inline */
     align-items: center; /* Vertically center the content */
     padding: 10px 15px;
     background-color: gray; /* Change to your desired color */
     cursor: pointer; /* Make the title clickable */
-    border-bottom: 1px solid rgb(100, 100, 100);
+    border: 1px solid;
+    border-radius: 5px;
+    margin: auto;
 }
 
 .AccordionTitle p {
@@ -28,7 +28,11 @@
 }
 
 .Description {
+    border: 1px solid;
+    border-radius: 5px;
     padding: 15px;
     box-sizing: border-box; /* Include padding in width calculation */
     line-height: 1.4;
+    width: 80vw;
+    margin: auto;
 }
