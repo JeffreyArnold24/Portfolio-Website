@@ -37,6 +37,7 @@ const handleLoginSubmit = async (e, username, password) => {
   const handleLogoutSubmit = async (e, username, authToken) => {
     e.preventDefault();
     var url = process.env.NEXT_PUBLIC_URL
+    var port = process.env.NEXT_PUBLIC_SPRINGBOOT_PORT
     const response = await fetch(url + port + "/logout", {
       method: "POST",
       headers: {
