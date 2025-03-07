@@ -70,7 +70,7 @@ const get_leaderboard = async() => {
   
 
   var url = process.env.NEXT_PUBLIC_URL
-  var port = process.env.NEXT_PUBLIC_HANGMAN_PORT 
+  var port = process.env.NEXT_PUBLIC_HANGMAN_PORT
     const response = await fetch(url + port + "/hangman/getLeaderboard", {
     method: "GET",
   });
