@@ -5,7 +5,7 @@ import { Collapse } from "react-collapse";
 import { AiOutlineMinus, AiOutlinePlus} from "react-icons/ai"
 import styles from "./accordion.css"
 
-export default function Accordion({description}){
+export default function Accordion({title, description}){
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => {
@@ -17,7 +17,7 @@ export default function Accordion({description}){
     return (
         <div className = "Accordion">
             <div className = "AccordionTitle" onClick = {toggle}>
-                <p>Description</p>
+                <p>{title}</p>
                 <div className = "AccordionPlusMinusIcon">
                     {isOpen ? <AiOutlineMinus/> : <AiOutlinePlus/>}
                 </div>

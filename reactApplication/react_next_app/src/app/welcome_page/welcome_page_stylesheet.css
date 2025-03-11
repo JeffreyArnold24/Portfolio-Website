@@ -11,41 +11,6 @@
   font-size: x-large;
 }
 
-.welcome-secondary-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  max-width: 80%;
-  margin: 0 auto;
-}
-
-.welcome-description-section {
-
-  background-color: rgba(211, 211, 211, 0.61);
-  padding: 20px;
-  max-width: 30%;
-  min-height: 250px;
-  display: "block";  
-  line-height: 1.2;
-}
-
-.welcome-main-info-section{
-  position: absolute;
-}
-
-.welcome-sign-in-section {
-  flex: 1;
-  background-color: rgba(100, 100, 100, 0.61);
-  padding: 20px;
-  max-width: 30%;
-  min-height: 250px;
-}
-
-.welcome-sign-in-title {
-  margin-bottom: 10px;
-}
-
 form {
   display: flex;
   flex-direction: column;
