@@ -2,7 +2,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import ThemeToggle from "@/components/dark_theme_toggle_button";
-import styles from './styles/toolbar.css'
+import {SignIn} from "@/components/signin/signin";
+import styles from './toolbar.css'
 
 export default function Toolbar() {
   const router = useRouter();
@@ -54,8 +55,8 @@ export default function Toolbar() {
           <a href="https://github.com/JeffreyArnold24//Portfolio-Website">Source Files</a>
         </div>
 
-        <div className='dark_theme_button'>
-          <ThemeToggle />
+        <div className = 'sign-in button'>
+          <SignIn />
         </div>
       </div>
     </div>

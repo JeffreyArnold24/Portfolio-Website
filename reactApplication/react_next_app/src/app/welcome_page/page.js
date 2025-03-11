@@ -1,11 +1,12 @@
 "use client";
 
 import styles from "./welcome_page_stylesheet.css";
-import Toolbar from "@/components/top_toolbar";
+import Toolbar from "@/components/toolbar/top_toolbar";
 import { useState, useEffect } from "react";
 import {handleLoginSubmit, handleLogoutSubmit} from "@/controllers/login_controller.js"
 import { componentDescriptions } from "@/constants/descriptions_constants";
-import Accordion from "@/components/accordion";
+import Accordion from "@/components/accordion/accordion";
+import Image from 'next/image';
 
 export default function WelcomePage() {
   const [username, setUsername] = useState("");
@@ -67,28 +68,7 @@ export default function WelcomePage() {
           </div>
         </div>
 
-        {/* Sign-in Section on the right */}
-        <div className="welcome-sign-in-section">
-          {authToken ? (
-            <div>
-              <p>You are signed in.</p>
-              <button type="submit" onClick={onLogoutSubmit}>Sign Out</button>
-              {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Conditionally display the error message */}
-            </div>
-          ) : (
-          <div>
-            <div className="welcome-sign-in-title">
-              <h2>Sign In</h2>
-            </div>
-            <form onSubmit={(e) => onLoginSubmit(e)}>
-              <input type="username" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
-              <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-              {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Conditionally display the error message */}
-              <button type="submit">Sign In</button>
-            </form>
-          </div>
-          )}
-        </div>
+        
       </div>
       <div className = "sign-in-description">
         <Accordion description={signInDescription}/>

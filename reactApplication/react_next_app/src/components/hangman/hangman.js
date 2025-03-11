@@ -1,10 +1,10 @@
 "use client";
 
-import styles from './styles/hangman.css'
+import styles from './hangman.css'
 import { useState, useEffect } from "react";
 import Image from 'next/image';
 import { start_hangman, guess_letter, get_leaderboard } from '@/controllers/hangman_controller';
-import Accordion from './accordion';
+import Accordion from '../accordion/accordion';
 import { componentDescriptions } from '@/constants/descriptions_constants';
 
 

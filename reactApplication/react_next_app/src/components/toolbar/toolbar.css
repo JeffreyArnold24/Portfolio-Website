@@ -9,7 +9,7 @@
     top: 0;
     left: 0;
     z-index: 100;
-    background-color: gray;
+    background-color: rgba(128, 128, 128, 0.7);
   }
 .username_dark_theme{
     display: flex;

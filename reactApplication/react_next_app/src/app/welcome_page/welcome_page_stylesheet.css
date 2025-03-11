@@ -66,9 +66,6 @@ body {
   overflow-x: hidden;
 }
 
-body {
-  color: rgb(var(--text-color));
-  background: rgb(var(--background-color));
-}
+
 
   

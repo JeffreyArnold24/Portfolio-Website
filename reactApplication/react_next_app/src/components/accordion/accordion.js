@@ -3,7 +3,7 @@
 import React, { useState} from "react";
 import { Collapse } from "react-collapse";
 import { AiOutlineMinus, AiOutlinePlus} from "react-icons/ai"
-import styles from "./styles/accordion.css"
+import styles from "./accordion.css"
 
 export default function Accordion({description}){
     const [isOpen, setIsOpen] = useState(false);
