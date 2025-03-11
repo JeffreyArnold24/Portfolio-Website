@@ -24,6 +24,7 @@ export default function Toolbar() {
 
   const links = [
     { name: 'Home', path: '/' },
+    { name: 'About', path: '/about_page'},
     { name: 'Games', path: '/games_page' },
   ];
 
