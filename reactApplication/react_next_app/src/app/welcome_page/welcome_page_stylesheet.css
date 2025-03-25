@@ -14,19 +14,19 @@
 }
 
 .redirect-button {
-  background-color: #007bff;
-  padding: 15px 30px;
+  margin-top: 100px;
+  background-color: rgba(100,100,100,.5);
+  padding: 25px 45px;
   font-size: 20px;
-  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 50px;
   transition: background-color 0.3s ease;
 }
 
 .redirect-button:hover {
-  background-color: #0056b3;
+  background-color: rgba(120,120,150,.8);
   transform: scale(1.1);
 }
 
