@@ -27,7 +27,7 @@ export default function Toolbar() {
   };
 
   const links = [
-    { name: 'Home', path: '/' },
+    { name: 'Home', path: '/welcome_page' },
     { name: 'About', path: '/about_page'},
     { name: 'Games', path: '/games_page' },
   ];
@@ -46,14 +46,7 @@ export default function Toolbar() {
         </ul>
       </nav>
       
-      <div className='username_dark_theme'>
-        {/* Display the username if it exists */}
-        {username && (
-          <div className="username_display">
-            {username}
-          </div>
-        )}
-
+      <div className='right_side_toolbar'>
         <div className = 'email'>
           <p>jeffarnold02@gmail.com</p>
         </div>

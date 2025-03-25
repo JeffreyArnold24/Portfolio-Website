@@ -91,7 +91,7 @@ export default function Hangman() {
             <h1>Hangman</h1>
             {/* Contains everything in Hangman except the title*/}
             <div className ="hangmanDescription">
-                <Accordion description = {description} />
+                <Accordion title = "Description" description = {description} />
             </div>
             <div className="main_hangman_game">
                 {/* Contains the Hangman image, word, guess bar, and reset game containers*/}
