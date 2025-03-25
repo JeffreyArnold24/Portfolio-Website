@@ -22,6 +22,10 @@ export default function Toolbar() {
     }
   }, []);
 
+  const handleLinkClick = (path) => {
+    window.location.href = path;
+  };
+
   const links = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about_page'},
@@ -34,7 +38,9 @@ export default function Toolbar() {
         <ul>
           {links.map((link) => (
             <li key={link.name} className={currentPath === link.path ? 'active' : ''}>
-              <Link href={link.path}>{link.name}</Link>
+              <a onClick={(e) => { e.preventDefault(); handleLinkClick(link.path); }}>
+                {link.name}
+              </a>
             </li>
           ))}
         </ul>

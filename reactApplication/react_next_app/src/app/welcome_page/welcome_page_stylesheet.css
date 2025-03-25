@@ -1,34 +1,33 @@
-.welcomepage-main-container {
+.welcome-main-container {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  align-items: center; /* Centers content horizontally */
+  height: 100vh;
   padding: 20px;
+  margin-top: 80px;
 }
 
 .welcome-title-section {
   margin-bottom: 20px;
   text-align: center;
-  font-size: x-large;
+  font-size: 50px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-input {
-  margin-bottom: 10px;
-  padding: 10px;
+.redirect-button {
+  background-color: #007bff;
+  padding: 15px 30px;
+  font-size: 20px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
   font-size: 16px;
-  background-color: rgba(255, 255, 255, 0.5);
-  color: black;
+  transition: background-color 0.3s ease;
 }
 
-html,
-body {
-  padding-top: 50px;
-  max-width: 100vw;
-  overflow-x: hidden;
+.redirect-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.1);
 }
 
 

@@ -10,12 +10,14 @@
     left: 0;
     z-index: 100;
     background-color: rgba(128, 128, 128, 0.7);
-  }
+}
+
 .username_dark_theme{
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
+
 .username_display{
   padding-right: 20px;
 }
@@ -38,7 +40,8 @@ li {
     margin: 0 1rem;
   }
 a {
-    color: white;
+    cursor: pointer;
+    color: blue;
     text-decoration: none;
   }
 .active a {
