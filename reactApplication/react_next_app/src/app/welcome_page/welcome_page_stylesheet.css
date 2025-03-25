@@ -1,81 +1,35 @@
-.welcomepage-main-container {
+.welcome-main-container {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  align-items: center; /* Centers content horizontally */
+  height: 100vh;
   padding: 20px;
+  margin-top: 80px;
 }
 
 .welcome-title-section {
   margin-bottom: 20px;
   text-align: center;
-  font-size: x-large;
+  font-size: 50px;
 }
 
-.welcome-secondary-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  max-width: 80%;
-  margin: 0 auto;
+.redirect-button {
+  margin-top: 100px;
+  background-color: rgba(100,100,100,.5);
+  padding: 25px 45px;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 50px;
+  transition: background-color 0.3s ease;
 }
 
-.welcome-description-section {
-
-  background-color: rgba(211, 211, 211, 0.61);
-  padding: 20px;
-  max-width: 30%;
-  min-height: 250px;
-  display: "block";  
-  line-height: 1.2;
+.redirect-button:hover {
+  background-color: rgba(120,120,150,.8);
+  transform: scale(1.1);
 }
 
-.welcome-main-info-section{
-  position: absolute;
-}
 
-.welcome-link-section{
-  position: relative;
-  text-align: right;
-  padding-top: 20px;
-  bottom: 0;
-}
-
-.welcome-sign-in-section {
-  flex: 1;
-  background-color: rgba(100, 100, 100, 0.61);
-  padding: 20px;
-  max-width: 30%;
-  min-height: 250px;
-}
-
-.welcome-sign-in-title {
-  margin-bottom: 10px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-input {
-  margin-bottom: 10px;
-  padding: 10px;
-  font-size: 16px;
-  background-color: rgba(255, 255, 255, 0.5);
-  color: black;
-}
-
-html,
-body {
-  padding-top: 50px;
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: rgb(var(--text-color));
-  background: rgb(var(--background-color));
-}
 
   

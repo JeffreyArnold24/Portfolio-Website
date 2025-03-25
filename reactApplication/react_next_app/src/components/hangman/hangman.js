@@ -1,10 +1,10 @@
 "use client";
 
-import styles from './styles/hangman.css'
+import styles from './hangman.css'
 import { useState, useEffect } from "react";
 import Image from 'next/image';
 import { start_hangman, guess_letter, get_leaderboard } from '@/controllers/hangman_controller';
-import Accordion from './accordion';
+import Accordion from '../accordion/accordion';
 import { componentDescriptions } from '@/constants/descriptions_constants';
 
 
@@ -88,8 +88,11 @@ export default function Hangman() {
     return (
         //Everything in the hangman game
         <div className="hangman">
-            <h2>Hangman</h2>
+            <h1>Hangman</h1>
             {/* Contains everything in Hangman except the title*/}
+            <div className ="hangmanDescription">
+                <Accordion title = "Description" description = {description} />
+            </div>
             <div className="main_hangman_game">
                 {/* Contains the Hangman image, word, guess bar, and reset game containers*/}
                 <div className="hangman_left_section">
@@ -188,9 +191,6 @@ export default function Hangman() {
                         </table>
                     </div>
                 </div>
-            </div>
-            <div className ="hangmanDescription">
-                <Accordion description = {description} />
             </div>
         </div>
     );

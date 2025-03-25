@@ -11,5 +11,7 @@ body {
 }
 
 .games-page-container {
-    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
 }

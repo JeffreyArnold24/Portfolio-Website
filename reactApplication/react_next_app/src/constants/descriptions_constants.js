@@ -1,12 +1,19 @@
 export const componentDescriptions = {
-    aboutMe:    `My name is Jeffrey Arnold.\n
-                I have created this website as a means to showcase my coding knowledge and capabilities.\n
-                Under each aspect of the website, there will be a description section that explains important information such as:\n
-                The type of server used\n
-                How to use the module\n
-                Any algorithms or design principles used\n
-                etc.\n
-                Please look around and try things out.
+    aboutMe:    `I graduated from BYU with a bachelor's degree in Computer Science.
+                I am a full-stack developer with experience in developing dynamic solutions.
+                I love the process of turning ideas into a reality and trying to solve the puzzles inherent in coding.
+                I consider myself a self-starter. I am always eager to learn and improve.
+                This was the primary motivation for the creation of this website.
+                I hope that you take the time to look around and see what skills that I can offer for your company.
+                `,
+
+    aboutSite:  `This site has two primary purposes. The first is for me to give me a way to learn
+                more about web-development and to help me to strengthen my coding knowledge and
+                abilities. The other purpose to is have a place where I can showcase my talents
+                to employers and recruiters. This site was built using React on the front-end
+                and is currently connected to a SpringBoot server and a Flask server. In the future
+                I intend on expanding on this as I learn new tools and frameworks. If you have any
+                questions, please email me.
                 `,
     
     signIn:     `

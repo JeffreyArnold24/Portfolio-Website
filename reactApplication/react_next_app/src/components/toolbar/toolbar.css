@@ -9,16 +9,27 @@
     top: 0;
     left: 0;
     z-index: 100;
-    background-color: gray;
-  }
-.username_dark_theme{
+    background-color: rgba(128, 128, 128, 0.7);
+}
+
+.right_side_toolbar{
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
+
 .username_display{
   padding-right: 20px;
 }
+
+.email{
+  padding-right: 20px;
+}
+
+.source_files_link{
+  padding-right: 20px;
+}
+
 ul {
     list-style: none;
     margin: 0;
@@ -29,7 +40,8 @@ li {
     margin: 0 1rem;
   }
 a {
-    color: white;
+    cursor: pointer;
+    color: blue;
     text-decoration: none;
   }
 .active a {

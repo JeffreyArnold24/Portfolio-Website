@@ -1,0 +1,58 @@
+.about-me-section {
+  background-color: rgba(201, 201, 201, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  max-width: 80%;
+  margin: 0 auto;
+  margin-top: 100px;
+  
+} 
+
+.about-me-image img {
+  flex: .25;
+  border-radius: 30px;
+  margin: 10px;;
+}
+
+.about-me-info {
+  flex: 0.75; /* 75% of the container */
+  padding-left: 20px; /* Adds spacing between image and text */
+}
+
+.about-me-info h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 45px;
+}
+
+.about-me-info p {
+  margin-bottom: 20px;
+  font-size: 25px;
+}
+
+.about-site-section {
+  background-color: rgba(201, 201, 201, 0.75);
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  max-width: 80%;
+  margin: 0 auto;
+  margin-top: 70px;
+  margin-bottom: 30px;
+} 
+
+.about-site-section h1 {
+  margin-top: 20px;
+  font-size: 45px;
+} 
+
+.about-site-section p {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  font-size: 25px;
+} 

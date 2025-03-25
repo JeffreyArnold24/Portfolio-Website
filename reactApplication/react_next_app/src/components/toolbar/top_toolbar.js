@@ -2,7 +2,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import ThemeToggle from "@/components/dark_theme_toggle_button";
-import styles from './styles/toolbar.css'
+import {SignIn} from "@/components/signin/signin";
+import styles from './toolbar.css'
 
 export default function Toolbar() {
   const router = useRouter();
@@ -21,8 +22,13 @@ export default function Toolbar() {
     }
   }, []);
 
+  const handleLinkClick = (path) => {
+    window.location.href = path;
+  };
+
   const links = [
-    { name: 'Home', path: '/' },
+    { name: 'Home', path: '/welcome_page' },
+    { name: 'About', path: '/about_page'},
     { name: 'Games', path: '/games_page' },
   ];
 
@@ -32,22 +38,25 @@ export default function Toolbar() {
         <ul>
           {links.map((link) => (
             <li key={link.name} className={currentPath === link.path ? 'active' : ''}>
-              <Link href={link.path}>{link.name}</Link>
+              <a onClick={(e) => { e.preventDefault(); handleLinkClick(link.path); }}>
+                {link.name}
+              </a>
             </li>
           ))}
         </ul>
       </nav>
       
-      <div className='username_dark_theme'>
-        {/* Display the username if it exists */}
-        {username && (
-          <div className="username_display">
-            {username}
-          </div>
-        )}
+      <div className='right_side_toolbar'>
+        <div className = 'email'>
+          <p>jeffarnold02@gmail.com</p>
+        </div>
 
-        <div className='dark_theme_button'>
-          <ThemeToggle />
+        <div className = 'source_files_link'>
+          <a href="https://github.com/JeffreyArnold24//Portfolio-Website">Source Files</a>
+        </div>
+
+        <div className = 'sign-in button'>
+          <SignIn />
         </div>
       </div>
     </div>
