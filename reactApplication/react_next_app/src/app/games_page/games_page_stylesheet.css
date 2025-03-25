@@ -7,7 +7,6 @@ body {
 
 body {
   color: rgb(var(--text-color));
-  background: rgb(var(--background-color));
 }
 
 .games-page-container {
