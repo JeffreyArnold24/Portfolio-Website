@@ -145,5 +145,56 @@ public class AuthTokenDAOSQLite implements AuthTokenDAOInterface {
         }
         return false;
     }
+
+    /**
+     * Checks if an authToken exists under the given username.
+     */
+    @Override
+    public Boolean tokenExistsForUsername(String username) {
+        String query = "SELECT COUNT(*) " 
+                     + "FROM authToken " 
+                     + "WHERE username = ?";
+    
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, username);
+            ResultSet resultSet = stmt.executeQuery();
+            
+            if(resultSet.next()){
+                int count = resultSet.getInt(1);
+                if (count > 0){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return false; // Default to false if an error occurs
+
+    }
+
+    @Override
+    public String retreiveAuthToken(String username) {
+        String query = "SELECT authToken "
+                     + "FROM authToken "
+                     + "WHERE username = ?";
+    
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, username);
+            ResultSet resultSet = stmt.executeQuery();
+            
+            if (resultSet.next()) {
+                return resultSet.getString("authToken"); // Return the auth token if found
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return null; // Return null if no token is found or an error occurs
+
+    }
     
 }

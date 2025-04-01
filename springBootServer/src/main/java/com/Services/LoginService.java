@@ -72,12 +72,17 @@ public class LoginService{
      */
     private String createAuthToken(String username){
         
-        String authToken = AuthTokenUtil.generateAuthToken();
-        if(authTokenDAO.createAuthToken(username, authToken, LocalDateTime.now())){
-            return authToken;
+        if(authTokenDAO.tokenExistsForUsername(username)){
+            return authTokenDAO.retreiveAuthToken(username);
         }
         else{
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Please try again later.");
+            String authToken = AuthTokenUtil.generateAuthToken();
+            if(authTokenDAO.createAuthToken(username, authToken, LocalDateTime.now())){
+                return authToken;
+            }
+            else {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error.");
+            }
         }
         
     }
