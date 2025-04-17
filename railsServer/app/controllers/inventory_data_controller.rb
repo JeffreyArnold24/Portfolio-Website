@@ -24,6 +24,20 @@ class InventoryDataController < ApplicationController
         render json: items, status: :ok
     end
 
+    # Creates an entry in the inventory table based on the
+    # json given to it.
+    # returns the item if created successfully
+    # returns an error message if the item could not be created
+    def create
+        item = Inventory.new(inventory_params)
+
+        if item.save
+          render json: item, status: :created
+        else
+          render json: { errors: item.errors.full_messages }, status: :unprocessable_entity
+        end
+    end
+
     private
 
     # Verifies if an authToken exists in the database
@@ -38,5 +52,21 @@ class InventoryDataController < ApplicationController
         end
         @current_user = record
     end
+
+    # Specifies the parameters of the inventory table
+    # Used for parsing json for the create method and
+    # adding it to the table.
+    def inventory_params
+        params.require(:inventory).permit(
+          :Id,
+          :Name,
+          :Type,
+          :Status,
+          :Created_Date,
+          :Assigned_User,
+          :Department,
+          :Last_Update
+        )
+      end
 
 end
