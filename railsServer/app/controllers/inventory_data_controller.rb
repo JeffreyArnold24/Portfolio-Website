@@ -1,13 +1,33 @@
 class InventoryDataController < ApplicationController
     before_action :verify_auth_token
     
+    # Looks up all of the inventory data depending on the user's role.
+    # Roles are:
+    #   Admin - Sees all assets and edits everything
+    #   Auditor - Sees all assets but cannot edit any
+    #   IT Technician - Sees all assets in their department and can edit them
+    #   Manager - Sees all assets in their department but cannot edit
+    #   Employee - Sees assets assigned to them but cannot edit
     def index
-        items = Inventory.all
-        render json: items, status: :ok  # This will render the Jbuilder view
+        username = params[:username]
+        role = params[:user_role]
+        if role == 'admin' || role == 'auditor'
+            items = Inventory.all
+        elsif role == 'technician' || role == 'manager'
+            department = params[:department]
+            items = Inventory.where(Department: department)
+        elsif role == 'employee'
+            items = Inventory.where(Assigned_User: username)
+        else
+            render json: { error: 'Unauthorized role' }, status: :unauthorized and return
+        end
+        render json: items, status: :ok
     end
 
     private
 
+    # Verifies if an authToken exists in the database
+    # The username and authToken are passed as paramaters in the url
     def verify_auth_token
         username = params[:username]
         token = params[:auth_token]
