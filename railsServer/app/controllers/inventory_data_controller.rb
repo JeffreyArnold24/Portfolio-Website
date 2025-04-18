@@ -64,6 +64,12 @@ class InventoryDataController < ApplicationController
     def verify_auth_token
         username = params[:username]
         token = params[:auth_token]
+        records = AuthToken.all
+        puts "\n"
+        records.each do |record|
+            puts record.authToken
+        end
+        puts "\n"
         record = AuthToken.find_by(username: username)
         if record.nil? || record.authToken != token
             render json: { error: 'Unauthorized' }, status: :unauthorized

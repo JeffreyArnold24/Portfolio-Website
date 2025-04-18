@@ -59,6 +59,7 @@ services:
     depends_on:
       - springboot-app
       - flask-app
+      - rails-app
 
 networks:
   app-network:

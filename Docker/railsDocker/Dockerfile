@@ -35,4 +35,3 @@ RUN chmod +x ./railsServer/bin/* && \
 # Start server via Thruster by default, this can be overwritten at runtime
 EXPOSE 8083
 CMD ["./railsServer/bin/thrust", "./railsServer/bin/rails", "server", "-b", "0.0.0.0", "-p", "8083"]
-#CMD ["rails", "server", "-b", "0.0.0.0"]

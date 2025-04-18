@@ -1,0 +1,8 @@
+.inventory-main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    margin-top: 80px;
+  }
