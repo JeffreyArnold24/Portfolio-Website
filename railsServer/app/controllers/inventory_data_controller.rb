@@ -38,6 +38,25 @@ class InventoryDataController < ApplicationController
         end
     end
 
+    # Updates an entry based on the given id
+    # The id is passed as a param in the url
+    # returns the item if successful
+    # returns an error if the item is not found
+    # returns an error if the item could not be updated
+    def update
+        id = params[:Id]
+        item = Inventory.find_by(Id: id)
+      
+        if item.nil?
+            render json: { error: "Item not found" }, status: :not_found
+        elsif item.update(inventory_params)
+            item.save
+            render json: item, status: :ok
+        else
+            render json: { errors: item.errors.full_messages }, status: :unprocessable_entity
+        end
+      end
+
     private
 
     # Verifies if an authToken exists in the database
