@@ -3,11 +3,11 @@
 import styles from "./inventory_page_stylesheet.css";
 import Toolbar from "@/components/toolbar/top_toolbar";
 import React, { useState, useEffect } from 'react';
-import { get_inventory } from "@/controllers/inventory_controller";
+import { get_inventory, submit_new_inventory_item, update_inventory_item } from "@/controllers/inventory_controller";
 
 export default function Inventory() {
 
-const [inventory, setInventory] = useState([]);
+  const [inventory, setInventory] = useState([]);
   const [form, setForm] = useState({
     Id: '',
     Name: '',
@@ -16,22 +16,24 @@ const [inventory, setInventory] = useState([]);
     Created_Date: '',
     Assigned_User: '',
     Department: '',
-    Last_Update: '',
   });
   const [role, setRole] = useState('admin');
+  const [department, setDepartment] = useState('IT');
+  
 
     // Fetch inventory items based on role
-    const fetchInventory = async () => {
+    const fetchInventory = async (role, department) => {
         try {
-            console.log(get_inventory())
+            const items = await get_inventory(role, department)
+            setInventory(items)
         } catch (error) {
-          //console.error('Error fetching inventory:', error);
+          console.error('Error fetching inventory:', error);
         }
       };
     
       useEffect(() => {
-        fetchInventory();
-      }, [role]);
+        fetchInventory(role, department);
+      }, [role, department]);
     
       // Handle input change
       const handleChange = (e) => {
@@ -40,11 +42,11 @@ const [inventory, setInventory] = useState([]);
     
       // Submit a new item
       const handleSubmit = async (e) => {
-        e.preventDefault();
         try {
-          alert('Item added successfully!');
-          setForm({ Id: '', Name: '', Type: '', Status: '', Created_Date: '', Assigned_User: '', Department: '', Last_Update: '' });
-          fetchInventory();
+          
+          setForm({ Id: '', Name: '', Type: '', Status: '', Created_Date: '', Assigned_User: '', Department: ''});
+          submit_new_inventory_item(form)
+
         } catch (error) {
           console.error('Error creating item:', error);
         }
@@ -61,6 +63,21 @@ const [inventory, setInventory] = useState([]);
         <select
           value={role}
           onChange={(e) => setRole(e.target.value)}
+          className="ml-2 p-1 border"
+        >
+          <option value="admin">Admin</option>
+          <option value="auditor">Auditor</option>
+          <option value="manager">Manager</option>
+          <option value="technician">Technician</option>
+          <option value="employee">Employee</option>
+        </select>
+      </div>
+
+      <div className="mb-5">
+        <label>Department:</label>
+        <select
+          value={role}
+          onChange={(e) => setDepartment(e.target.value)}
           className="ml-2 p-1 border"
         >
           <option value="admin">Admin</option>
@@ -88,13 +105,20 @@ const [inventory, setInventory] = useState([]);
       </form>
 
       <h2 className="text-xl font-semibold mb-2">Inventory Items</h2>
-      <ul className="space-y-1">
+      <ul className="space-y-4">
         {inventory.map((item) => (
-          <li key={item.Id} className="border p-2 rounded">
-            <strong>{item.Name}</strong> ({item.Type}) - {item.Status}
+          <li key={item.Id} className="border p-4 rounded bg-white shadow">
+            <div className="space-y-1">
+              {Object.entries(item).map(([key, value]) => (
+                <div key={key} className="flex">
+                  <span className="font-semibold mr-2">{key}:</span>
+                  <span>{value}</span>
+                </div>
+              ))}
+            </div>
           </li>
         ))}
-      </ul>
+    </ul>
     </div>
     </div>
   );

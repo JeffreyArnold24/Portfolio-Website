@@ -26,10 +26,12 @@ class InventoryDataController < ApplicationController
 
     # Creates an entry in the inventory table based on the
     # json given to it.
+    # manually sets the last update time to the time of processing.
     # returns the item if created successfully
     # returns an error message if the item could not be created
     def create
         item = Inventory.new(inventory_params)
+        item.Last_Update = Time.now
 
         if item.save
           render json: item, status: :created
@@ -40,6 +42,7 @@ class InventoryDataController < ApplicationController
 
     # Updates an entry based on the given id
     # The id is passed as a param in the url
+    # manually sets the last update time to the time of processing.
     # returns the item if successful
     # returns an error if the item is not found
     # returns an error if the item could not be updated
@@ -50,6 +53,7 @@ class InventoryDataController < ApplicationController
         if item.nil?
             render json: { error: "Item not found" }, status: :not_found
         elsif item.update(inventory_params)
+            item.Last_Update = Time.now
             item.save
             render json: item, status: :ok
         else
@@ -65,11 +69,6 @@ class InventoryDataController < ApplicationController
         username = params[:username]
         token = params[:auth_token]
         records = AuthToken.all
-        puts "\n"
-        records.each do |record|
-            puts record.authToken
-        end
-        puts "\n"
         record = AuthToken.find_by(username: username)
         if record.nil? || record.authToken != token
             render json: { error: 'Unauthorized' }, status: :unauthorized
@@ -89,8 +88,7 @@ class InventoryDataController < ApplicationController
           :Status,
           :Created_Date,
           :Assigned_User,
-          :Department,
-          :Last_Update
+          :Department
         )
       end
 
