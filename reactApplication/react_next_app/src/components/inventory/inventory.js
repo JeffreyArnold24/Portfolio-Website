@@ -9,7 +9,6 @@ export default function Inventory() {
     Name: '',
     Type: '',
     Status: '',
-    Created_Date: '',
     Assigned_User: '',
     Department: '',
   });
