@@ -1,7 +1,48 @@
 .inventory_main_container {
+    background-color: rgba(240, 248, 255, 0.445);
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100vh;
     padding: 20px;
+    width: 80%;
+    border-radius: 10px;
+    margin: 0 auto; 
+  }
+
+  .role-department-selectors {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .inventory_table_wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 1rem;
+    border-radius: 10px;
+  }
+
+  .inventory_table {
+    width: 100%;
+    min-width: 80%;
+    border-collapse: collapse;
+    background-color: #ffffffd0;
+    
+  }
+  
+  .inventory_table th,
+  .inventory_table td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  .inventory_table th {
+    background-color: #f4f4f4d8;
+    font-weight: bold;
+  }
+  
+  .inventory_table tr:nth-child(even) {
+    background-color: #f9f9f9b6;
   }

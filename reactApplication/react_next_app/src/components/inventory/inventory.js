@@ -25,94 +25,102 @@ export default function Inventory() {
         } catch (error) {
           console.error('Error fetching inventory:', error);
         }
-      };
+    };
     
-      useEffect(() => {
+    useEffect(() => {
         fetchInventory(role, department);
-      }, [role, department]);
+    }, [role, department]);
     
-      // Handle input change
-      const handleChange = (e) => {
+    // Handle input change
+    const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
-      };
+    };
     
-      // Submit a new item
-      const handleSubmit = async (e) => {
+    // Submit a new item
+    const handleSubmit = async (e) => {
         try {
-          
-          setForm({ Id: '', Name: '', Type: '', Status: '', Created_Date: '', Assigned_User: '', Department: ''});
-          submit_new_inventory_item(form)
+            setForm({ Id: '', Name: '', Type: '', Status: '', Created_Date: '', Assigned_User: '', Department: ''});
+            submit_new_inventory_item(form)
 
         } catch (error) {
-          console.error('Error creating item:', error);
+            console.error('Error creating item:', error);
         }
-      };
-      return (
+    };
+
+    return (
         <div className = "inventory_main_container">
-        <h1>Inventory Management</h1>
+            <h1>Inventory Management</h1>
 
-        <div className="mb-4">
-            <label>User Role:</label>
-            <select
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            className="ml-2 p-1 border"
-            >
-            <option value="admin">Admin</option>
-            <option value="auditor">Auditor</option>
-            <option value="manager">Manager</option>
-            <option value="technician">Technician</option>
-            <option value="employee">Employee</option>
-            </select>
-        </div>
-
-        <div className="mb-5">
-            <label>Department:</label>
-            <select
-            value={role}
-            onChange={(e) => setDepartment(e.target.value)}
-            className="ml-2 p-1 border"
-            >
-            <option value="admin">Admin</option>
-            <option value="auditor">Auditor</option>
-            <option value="manager">Manager</option>
-            <option value="technician">Technician</option>
-            <option value="employee">Employee</option>
-            </select>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-2 mb-6">
-            {Object.keys(form).map((key) => (
-            <input
-                key={key}
-                name={key}
-                value={form[key]}
-                onChange={handleChange}
-                placeholder={key}
-                className="block w-full p-2 border rounded"
-            />
-            ))}
-            <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-            Add Inventory Item
-            </button>
-        </form>
-
-        <h2 className="text-xl font-semibold mb-2">Inventory Items</h2>
-        <ul className="space-y-4">
-            {inventory.map((item) => (
-            <li key={item.Id} className="border p-4 rounded bg-white shadow">
-                <div className="space-y-1">
-                {Object.entries(item).map(([key, value]) => (
-                    <div key={key} className="flex">
-                    <span className="font-semibold mr-2">{key}:</span>
-                    <span>{value}</span>
-                    </div>
-                ))}
+            <div className= "role-department-selectors">
+                <div className="user_role_selector">
+                    <label>User Role: </label>
+                    <select
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    className="role_selector"
+                    >
+                    <option value="admin">Admin</option>
+                    <option value="auditor">Auditor</option>
+                    <option value="manager">Manager</option>
+                    <option value="technician">Technician</option>
+                    <option value="employee">Employee</option>
+                    </select>
                 </div>
-            </li>
-            ))}
-        </ul>
-    </div>
+
+                <div className="department_selector">
+                    <label>Department: </label>
+                    <select
+                    value={department}
+                    onChange={(e) => setDepartment(e.target.value)}
+                    className="department_selector"
+                    >
+                    <option value="admin">Admin</option>
+                    <option value="auditor">Auditor</option>
+                    <option value="manager">Manager</option>
+                    <option value="technician">Technician</option>
+                    <option value="employee">Employee</option>
+                    </select>
+                </div>
+            </div>
+
+            <form onSubmit={handleSubmit} className="add_item_form">
+                {Object.keys(form).map((key) => (
+                <input
+                    key={key}
+                    name={key}
+                    value={form[key]}
+                    onChange={handleChange}
+                    placeholder={key}
+                    className="add_item_input"
+                />
+                ))}
+                <button type="submit" className="add_item_button">
+                Add Inventory Item
+                </button>
+            </form>
+
+            <h2>Inventory Items</h2>
+            <div className="inventory_table_wrapper">
+                <table className="inventory_table">
+                    <thead>
+                        <tr>
+                        {Object.keys(inventory[0] || {}).map((key) => (
+                            <th key={key}>{key}</th>
+                        ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {inventory.map((item, index) => (
+                        <tr key={index}>
+                            {Object.keys(item).map((key) => (
+                            <td key={key}>{item[key]}</td>
+                            ))}
+                        </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 
 }
