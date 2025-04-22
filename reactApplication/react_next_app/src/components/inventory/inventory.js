@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { get_inventory, submit_new_inventory_item, update_inventory_item } from "@/controllers/inventory_controller";
+import { get_inventory, submit_new_inventory_item, update_inventory_item, delete_inventory_item } from "@/controllers/inventory_controller";
 import styles from './inventory.css'
 
 export default function Inventory() {
@@ -16,6 +16,8 @@ export default function Inventory() {
   const [department, setDepartment] = useState('IT');
   const [error, setError] = useState('');
   const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState(null);
+  const [editedItem, setEditedItem] = useState({});
   
 
     // Fetch inventory items based on role and department
@@ -41,8 +43,53 @@ export default function Inventory() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            setForm({ Id: '', Name: '', Type: '', Status: '', Assigned_User: '', Department: ''});
             await submit_new_inventory_item(form)
+            setError('')
+            setForm({ Id: '', Name: '', Type: '', Status: '', Assigned_User: '', Department: ''});
+            fetchInventory(role, department);
+        } catch (error) {
+            setError(error.message)
+        }
+    };
+
+    // Edit an existing item
+    const handleEditClick = async (item) => {
+        setEditingId(item.Id);
+        setEditedItem(item);
+    };
+
+    // Cancel the edit and reset the information
+    const handleCancelEdit = () => {
+        setEditingId(null);
+        setEditedItem({});
+    };
+
+    // Sets the data for the edited item
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setEditedItem((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    // Saves the updated item on the back-end
+    const handleSaveEdit = async () => {
+        try {
+            await update_inventory_item(editedItem)
+            setEditingId(null);
+            setEditedItem({});
+            fetchInventory(role, department);
+          } catch (err) {
+            console.error("Edit error:", err);
+          }
+    };
+
+    // Delete an existing item
+    const handleDelete = async (id) => {
+        e.preventDefault();
+        try {
+            await delete_inventory_item(id)
             setError('')
             fetchInventory(role, department);
         } catch (error) {
@@ -124,14 +171,39 @@ export default function Inventory() {
                         {Object.keys(inventory[0] || {}).map((key) => (
                             <th key={key}>{key}</th>
                         ))}
+                        <th className="sticky_column"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {inventory.map((item, index) => (
-                        <tr key={index}>
-                            {Object.keys(item).map((key) => (
-                            <td key={key}>{item[key]}</td>
+                        {inventory.map((item) => (
+                        <tr key={item.Id}>
+                            {Object.keys(item).map((key, value) => (
+                                <td key={key}>
+                                    {editingId === item.Id ? (
+                                      <input
+                                        name={key}
+                                        value={editedItem[key]}
+                                        onChange={handleInputChange}
+                                        className="edit_input"
+                                      />
+                                    ) : (
+                                      <>{item[key]}</>
+                                    )}
+                                </td>
                             ))}
+                            <td className="actions_column sticky_column">
+                                {editingId === item.Id ? (
+                                <>
+                                    <button onClick={() => handleSaveEdit()}>Save</button>
+                                    <button onClick={() => handleCancelEdit}>Cancel</button>
+                                </>
+                                ) : (
+                                <>
+                                    <button onClick={() => handleEditClick(item)}>Edit</button>
+                                    <button onClick={() => handleDelete(item.Id)}>Delete</button>
+                                </>
+                                )}
+                            </td>
                         </tr>
                         ))}
                     </tbody>
