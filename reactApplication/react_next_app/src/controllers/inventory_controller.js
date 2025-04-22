@@ -63,7 +63,8 @@ const update_inventory_item = async(item) => {
   var username = localStorage.getItem('username')
   var authToken = localStorage.getItem('authToken')
 
-  const response = await fetch(url + port + "/inventory_data/" + item.Id + "/?username=" + username + "&auth_token=" + authToken, {
+  const fullURL = url + port + "/inventory_data/" + item.Id + "/?username=" + username + "&auth_token=" + authToken
+  const response = await fetch(fullURL, {
     method: "PUT",
     headers: {
       'Content-Type': 'application/json',
@@ -97,6 +98,16 @@ const delete_inventory_item = async(id) =>{
   var port = process.env.NEXT_PUBLIC_RAILS_PORT
   var username = localStorage.getItem('username')
   var authToken = localStorage.getItem('authToken')
+
+  const fullURL = url + port + "/inventory_data/" + id + "/?username=" + username + "&auth_token=" + authToken
+  const response = await fetch(fullURL, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || 'Failed to delete item');
+  }
 
 }
 

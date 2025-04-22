@@ -87,7 +87,6 @@ export default function Inventory() {
 
     // Delete an existing item
     const handleDelete = async (id) => {
-        e.preventDefault();
         try {
             await delete_inventory_item(id)
             setError('')

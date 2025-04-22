@@ -67,7 +67,22 @@ class InventoryDataController < ApplicationController
         else
             render json: { errors: item.errors.full_messages }, status: :unprocessable_entity
         end
-      end
+    end
+
+    # Destroys an entry in the database according to the provided ID
+    # returns a success message if successful
+    # returns an "not found" error if unsuccessful
+    def destroy
+        id = params[:Id]
+        item = Inventory.find_by(Id: id)
+      
+        if item
+          item.destroy
+          render json: { message: "Item deleted successfully" }, status: :ok
+        else
+          render json: { error: "Item not found" }, status: :not_found
+        end
+    end
 
     private
 
