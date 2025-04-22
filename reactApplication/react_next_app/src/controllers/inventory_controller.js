@@ -99,7 +99,7 @@ const delete_inventory_item = async(id) =>{
   var username = localStorage.getItem('username')
   var authToken = localStorage.getItem('authToken')
 
-  const fullURL = url + port + "/inventory_data/" + id + "/?username=" + username + "&auth_token=" + authToken
+  const fullURL = url + port + "/inventory_data/" + id + "?username=" + username + "&auth_token=" + authToken
   const response = await fetch(fullURL, {
     method: "DELETE",
   });

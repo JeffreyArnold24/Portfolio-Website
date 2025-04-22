@@ -199,7 +199,10 @@ export default function Inventory() {
                                 ) : (
                                 <>
                                     <button onClick={() => handleEditClick(item)}>Edit</button>
-                                    <button onClick={() => handleDelete(item.Id)}>Delete</button>
+                                    <button onClick={() =>     {const confirmed = window.confirm("Are you sure you want to delete this item?");
+                                                                if (confirmed) {
+                                                                handleDelete(item.Id);}
+                                                                }}>Delete</button>
                                 </>
                                 )}
                             </td>
