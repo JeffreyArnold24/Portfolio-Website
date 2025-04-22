@@ -147,7 +147,22 @@ export default function Inventory() {
             {showForm && (
                 <div className="add_item_container">
                     <form onSubmit={handleSubmit} className="add_item_form">
-                        {Object.keys(form).map((key) => (
+                        {Object.keys(form).map((key) => 
+                        key === "Department" ? (
+                            <select
+                            key={key}
+                            name={key}
+                            value={form[key]}
+                            onChange={handleChange}
+                            className="add_item_input"
+                          >
+                            {departments.map((dept) => (
+                              <option key={dept} value={dept}>
+                                {dept}
+                              </option>
+                            ))}
+                          </select>
+                        ) : (
                         <input
                             key={key}
                             name={key}
