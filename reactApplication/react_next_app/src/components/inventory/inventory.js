@@ -13,11 +13,19 @@ export default function Inventory() {
     Department: '',
   });
   const [role, setRole] = useState('admin');
-  const [department, setDepartment] = useState('IT');
+  const [department, setDepartment] = useState('Operations');
   const [error, setError] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [editedItem, setEditedItem] = useState({});
+
+  const [departments, setDepartments] = useState([
+    'Operations',
+    'Accounting',
+    'IT',
+    'Sales',
+    'HR',
+  ]);
   
 
     // Fetch inventory items based on role and department
@@ -123,11 +131,11 @@ export default function Inventory() {
                     onChange={(e) => setDepartment(e.target.value)}
                     className="department_selector"
                     >
-                    <option value="admin">Admin</option>
-                    <option value="auditor">Auditor</option>
-                    <option value="manager">Manager</option>
-                    <option value="technician">Technician</option>
-                    <option value="employee">Employee</option>
+                    {departments.map((dep) => (
+                    <option key={dep} value={dep}>
+                        {dep}
+                    </option>
+                    ))}
                     </select>
                 </div>
             </div>
@@ -176,19 +184,34 @@ export default function Inventory() {
                     <tbody>
                         {inventory.map((item) => (
                         <tr key={item.Id}>
-                            {Object.keys(item).map((key, value) => (
+                            {Object.keys(item).map((key) => (
                                 <td key={key}>
-                                    {editingId === item.Id ? (
-                                      <input
-                                        name={key}
-                                        value={editedItem[key]}
-                                        onChange={handleInputChange}
-                                        className="edit_input"
-                                      />
-                                    ) : (
-                                      <>{item[key]}</>
-                                    )}
-                                </td>
+                                {editingId === item.Id ? (
+                                  key === 'Department' ? (
+                                    <select
+                                      name={key}
+                                      value={editedItem[key]}
+                                      onChange={handleInputChange}
+                                      className="edit_input"
+                                    >
+                                      {departments.map((dep) => (
+                                        <option key={dep} value={dep}>
+                                          {dep}
+                                        </option>
+                                      ))}
+                                    </select>
+                                  ) : (
+                                    <input
+                                      name={key}
+                                      value={editedItem[key]}
+                                      onChange={handleInputChange}
+                                      className="edit_input"
+                                    />
+                                  )
+                                ) : (
+                                  <>{item[key]}</>
+                                )}
+                              </td>
                             ))}
                             <td className="actions_column sticky_column">
                                 {editingId === item.Id ? (
