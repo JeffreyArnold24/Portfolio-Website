@@ -52,7 +52,6 @@ const submit_new_inventory_item = async(item) => {
   }
   else {
     const errorData = await response.json();
-    console.log(errorData?.errors)
     throw new Error(errorData?.errors[0] || "An error occurred while fetching inventory.");
   }
   

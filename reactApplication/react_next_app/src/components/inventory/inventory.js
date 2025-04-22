@@ -15,6 +15,7 @@ export default function Inventory() {
   const [role, setRole] = useState('admin');
   const [department, setDepartment] = useState('IT');
   const [error, setError] = useState('');
+  const [showForm, setShowForm] = useState(false);
   
 
     // Fetch inventory items based on role and department
@@ -85,27 +86,35 @@ export default function Inventory() {
                 </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="add_item_form">
-                {Object.keys(form).map((key) => (
-                <input
-                    key={key}
-                    name={key}
-                    value={form[key]}
-                    onChange={handleChange}
-                    placeholder={key}
-                    className="add_item_input"
-                />
-                ))}
-                <button type="submit" className="add_item_button">
-                Add Inventory Item
-                </button>
-            </form>
+            <button onClick={() => setShowForm(!showForm)}>
+                {showForm ? 'Cancel' : 'Add New Item'}
+            </button>
+
+            {showForm && (
+                <div className="add_item_container">
+                    <form onSubmit={handleSubmit} className="add_item_form">
+                        {Object.keys(form).map((key) => (
+                        <input
+                            key={key}
+                            name={key}
+                            value={form[key]}
+                            onChange={handleChange}
+                            placeholder={key}
+                            className="add_item_input"
+                        />
+                        ))}
+                        <button type="submit" className="add_item_button">
+                        Add Inventory Item
+                        </button>
+                    </form>
 
                     {error && (
-        <div className="error_message">
-            {error}
-        </div>
-        )}
+                        <div className="error_message">
+                            {error}
+                        </div>
+                    )}
+                </div>
+            )}
 
             <h2>Inventory Items</h2>
             <div className="inventory_table_wrapper">

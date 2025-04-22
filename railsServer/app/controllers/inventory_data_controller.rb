@@ -41,7 +41,7 @@ class InventoryDataController < ApplicationController
                 render json: { errors: item.errors.full_messages }, status: :unprocessable_entity
             end
         rescue ActiveRecord::RecordNotUnique => e
-            render json: { errors: ["ID already exists."] }, status: :unprocessable_entity
+            render json: { errors: ["ID already exists ."] }, status: :unprocessable_entity
         rescue => e
             render json: { errors: [e.message] }, status: :internal_server_error
         end
