@@ -14,6 +14,7 @@ export default function Inventory() {
   });
   const [role, setRole] = useState('admin');
   const [department, setDepartment] = useState('IT');
+  const [error, setError] = useState('');
   
 
     // Fetch inventory items based on role and department
@@ -37,12 +38,14 @@ export default function Inventory() {
     
     // Submit a new item
     const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
-            setForm({ Id: '', Name: '', Type: '', Status: '', Created_Date: '', Assigned_User: '', Department: ''});
-            submit_new_inventory_item(form)
-
+            setForm({ Id: '', Name: '', Type: '', Status: '', Assigned_User: '', Department: ''});
+            await submit_new_inventory_item(form)
+            setError('')
+            fetchInventory(role, department);
         } catch (error) {
-            console.error('Error creating item:', error);
+            setError(error.message)
         }
     };
 
@@ -97,6 +100,12 @@ export default function Inventory() {
                 Add Inventory Item
                 </button>
             </form>
+
+                    {error && (
+        <div className="error_message">
+            {error}
+        </div>
+        )}
 
             <h2>Inventory Items</h2>
             <div className="inventory_table_wrapper">

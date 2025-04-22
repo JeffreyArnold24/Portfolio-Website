@@ -34,12 +34,18 @@ class InventoryDataController < ApplicationController
         puts Time.now.strftime("%Y-%m-%d %H:%M:%S")
         item.Last_Update = Time.now.strftime("%Y-%m-%d %H:%M:%S")
         item.Created_Date = Time.now.strftime("%Y-%m-%d %H:%M:%S")
-
-        if item.save
-          render json: item, status: :created
-        else
-          render json: { errors: item.errors.full_messages }, status: :unprocessable_entity
+        begin
+            if item.save
+                render json: item, status: :created
+            else
+                render json: { errors: item.errors.full_messages }, status: :unprocessable_entity
+            end
+        rescue ActiveRecord::RecordNotUnique => e
+            render json: { errors: ["ID already exists."] }, status: :unprocessable_entity
+        rescue => e
+            render json: { errors: [e.message] }, status: :internal_server_error
         end
+
     end
 
     # Updates an entry based on the given id

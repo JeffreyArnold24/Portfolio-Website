@@ -48,11 +48,12 @@ const submit_new_inventory_item = async(item) => {
   });
   if (response.ok){
     const data = await response.json();
-    console.log(data)
     return data
   }
   else {
-    return
+    const errorData = await response.json();
+    console.log(errorData?.errors)
+    throw new Error(errorData?.errors[0] || "An error occurred while fetching inventory.");
   }
   
 }
