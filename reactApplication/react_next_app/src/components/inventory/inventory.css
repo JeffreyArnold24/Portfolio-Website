@@ -14,6 +14,7 @@
     display: flex;
     gap: 1rem;
     align-items: center;
+    padding: 10px;
   }
 
   .inventory_table_wrapper {

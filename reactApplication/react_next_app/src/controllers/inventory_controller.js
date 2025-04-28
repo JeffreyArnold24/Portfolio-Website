@@ -8,7 +8,6 @@ const get_inventory = async(role, department) => {
   var authToken = localStorage.getItem('authToken')
 
   const fullURL = url + port + "/inventory_data?username=" + username + "&auth_token=" + authToken + "&user_role=" + role + "&department=" + department
-  console.log(fullURL)
   const response = await fetch(fullURL, {
     method: "GET",
   });
@@ -84,7 +83,6 @@ const update_inventory_item = async(item) => {
 
   if (response.ok){
     const data = await response.json();
-    console.log(data)
     return data
   }
   else {

@@ -233,7 +233,7 @@ export default function Inventory() {
                                     {editingId === item.Id ? (
                                     <>
                                         <button onClick={() => handleSaveEdit()}>Save</button>
-                                        <button onClick={() => handleCancelEdit}>Cancel</button>
+                                        <button onClick={() => handleCancelEdit()}>Cancel</button>
                                     </>
                                     ) : (
                                     <>
