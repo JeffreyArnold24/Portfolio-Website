@@ -7,7 +7,8 @@ const get_inventory = async(role, department) => {
   var username = localStorage.getItem('username')
   var authToken = localStorage.getItem('authToken')
 
-  const fullURL = url + port + "/inventory_data?username=" + username + "&auth_token=" + authToken + "&user_role=" + role + "&department" + department
+  const fullURL = url + port + "/inventory_data?username=" + username + "&auth_token=" + authToken + "&user_role=" + role + "&department=" + department
+  console.log(fullURL)
   const response = await fetch(fullURL, {
     method: "GET",
   });
