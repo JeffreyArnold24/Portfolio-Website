@@ -193,7 +193,7 @@ export default function Inventory() {
                         {Object.keys(inventory[0] || {}).map((key) => (
                             <th key={key}>{key}</th>
                         ))}
-                        <th className="sticky_column"></th>
+                        {['admin', 'manager', 'technician'].includes(role) && ( <th className="sticky_column"></th> )}
                         </tr>
                     </thead>
                     <tbody>
@@ -228,22 +228,24 @@ export default function Inventory() {
                                 )}
                               </td>
                             ))}
-                            <td className="actions_column sticky_column">
-                                {editingId === item.Id ? (
-                                <>
-                                    <button onClick={() => handleSaveEdit()}>Save</button>
-                                    <button onClick={() => handleCancelEdit}>Cancel</button>
-                                </>
-                                ) : (
-                                <>
-                                    <button onClick={() => handleEditClick(item)}>Edit</button>
-                                    <button onClick={() =>     {const confirmed = window.confirm("Are you sure you want to delete this item?");
-                                                                if (confirmed) {
-                                                                handleDelete(item.Id);}
-                                                                }}>Delete</button>
-                                </>
-                                )}
-                            </td>
+                            {['admin', 'manager', 'technician'].includes(role) && (
+                                <td className="actions_column sticky_column">
+                                    {editingId === item.Id ? (
+                                    <>
+                                        <button onClick={() => handleSaveEdit()}>Save</button>
+                                        <button onClick={() => handleCancelEdit}>Cancel</button>
+                                    </>
+                                    ) : (
+                                    <>
+                                        <button onClick={() => handleEditClick(item)}>Edit</button>
+                                        <button onClick={() =>     {const confirmed = window.confirm("Are you sure you want to delete this item?");
+                                                                    if (confirmed) {
+                                                                    handleDelete(item.Id);}
+                                                                    }}>Delete</button>
+                                    </>
+                                    )}
+                                </td>
+                            )}
                         </tr>
                         ))}
                     </tbody>
