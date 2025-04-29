@@ -202,7 +202,7 @@ export default function Inventory() {
                         <tr key={item.Id}>
                             {Object.keys(item).map((key) => (
                                 <td key={key}>
-                                {editingId === item.Id ? (
+                                {editingId === item.Id && key !== 'Created_Date' && key !== 'Last_Update' ? (
                                   key === 'Department' ? (
                                     <select
                                       name={key}
