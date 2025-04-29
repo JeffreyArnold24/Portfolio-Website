@@ -37,6 +37,7 @@
     border: 1px solid #ddd;
     padding: 0.75rem;
     text-align: left;
+    height: 40px;
   }
   
   .inventory_table th {
@@ -53,9 +54,30 @@
     right: 0;
     background-color: white;
     z-index: 1;
+    padding: 0.75rem;
+    vertical-align: middle;
   }
+
+  
 
   th.sticky_column {
     background-color: white;
     z-index: 1;
+  }
+
+  .button_wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .sticky_column button {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
   }

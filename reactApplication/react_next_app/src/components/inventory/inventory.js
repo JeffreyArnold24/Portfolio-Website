@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { get_inventory, submit_new_inventory_item, update_inventory_item, delete_inventory_item } from "@/controllers/inventory_controller";
+import { FaEdit, FaSave, FaTimes, FaTrash } from 'react-icons/fa';
 import styles from './inventory.css'
 
 export default function Inventory() {
@@ -230,20 +231,22 @@ export default function Inventory() {
                             ))}
                             {['admin', 'manager', 'technician'].includes(role) && (
                                 <td className="actions_column sticky_column">
-                                    {editingId === item.Id ? (
-                                    <>
-                                        <button onClick={() => handleSaveEdit()}>Save</button>
-                                        <button onClick={() => handleCancelEdit()}>Cancel</button>
-                                    </>
-                                    ) : (
-                                    <>
-                                        <button onClick={() => handleEditClick(item)}>Edit</button>
-                                        <button onClick={() =>     {const confirmed = window.confirm("Are you sure you want to delete this item?");
-                                                                    if (confirmed) {
-                                                                    handleDelete(item.Id);}
-                                                                    }}>Delete</button>
-                                    </>
-                                    )}
+                                    <div className="button_wrapper">
+                                        {editingId === item.Id ? (
+                                        <>
+                                            <button onClick={() => handleSaveEdit()}><FaSave /></button>
+                                            <button onClick={() => handleCancelEdit()}><FaTimes /></button>
+                                        </>
+                                        ) : (
+                                        <>
+                                            <button onClick={() => handleEditClick(item)}><FaEdit /></button>
+                                            <button onClick={() =>     {const confirmed = window.confirm("Are you sure you want to delete this item?");
+                                                                        if (confirmed) {
+                                                                        handleDelete(item.Id);}
+                                                                        }}><FaTrash /></button>
+                                        </>
+                                        )}
+                                    </div>
                                 </td>
                             )}
                         </tr>
