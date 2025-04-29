@@ -54,7 +54,7 @@ export default function Inventory() {
         try {
             await submit_new_inventory_item(form)
             setError('')
-            setForm({ Id: '', Name: '', Type: '', Status: '', Assigned_User: '', Department: ''});
+            setForm({ Id: '', Name: '', Type: '', Status: '', Assigned_User: '', Department: form.Department});
             fetchInventory(role, department);
         } catch (error) {
             setError(error.message)
@@ -141,10 +141,6 @@ export default function Inventory() {
                 </div>
             </div>
 
-            <button onClick={() => setShowForm(!showForm)}>
-                {showForm ? 'Cancel' : 'Add New Item'}
-            </button>
-
             {showForm && (
                 <div className="add_item_container">
                     <form onSubmit={handleSubmit} className="add_item_form">
@@ -185,6 +181,10 @@ export default function Inventory() {
                     )}
                 </div>
             )}
+
+            <button onClick={() => setShowForm(!showForm)}>
+                {showForm ? 'Cancel' : 'Add New Item'}
+            </button>
 
             <h2>Inventory Items</h2>
             <div className="inventory_table_wrapper">

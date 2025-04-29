@@ -81,3 +81,7 @@
     cursor: pointer;
     padding: 0;
   }
+
+  .inventory_main_container h2 {
+    padding-top: 10px;
+  }
