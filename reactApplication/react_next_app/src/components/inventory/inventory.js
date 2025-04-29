@@ -27,7 +27,8 @@ export default function Inventory() {
     'Sales',
     'HR',
   ]);
-  
+
+  const [sortConfig, setSortConfig] = useState({ key: 'Id', direction: 'asc' });
 
     // Fetch inventory items based on role and department
     const fetchInventory = async (role, department) => {
@@ -104,6 +105,32 @@ export default function Inventory() {
             setError(error.message)
         }
     };
+
+    // Sorts the table based on the given key.
+    const handleSort = (key) => {
+        setSortConfig((prevConfig) => {
+            if (prevConfig.key === key) {
+            return {
+                key,
+                direction: prevConfig.direction === 'asc' ? 'desc' : 'asc',
+            };
+            }
+            return { key, direction: 'asc' };
+        });
+    };
+
+    const sortedInventory = React.useMemo(() => {
+        if (!sortConfig.key) return inventory;
+        
+        return [...inventory].sort((a, b) => {
+            const aVal = a[sortConfig.key];
+            const bVal = b[sortConfig.key];
+        
+            if (aVal < bVal) return sortConfig.direction === 'asc' ? -1 : 1;
+            if (aVal > bVal) return sortConfig.direction === 'asc' ? 1 : -1;
+            return 0;
+        });
+    }, [inventory, sortConfig]);
 
     return (
         <div className = "inventory_main_container">
@@ -192,13 +219,16 @@ export default function Inventory() {
                     <thead>
                         <tr>
                         {Object.keys(inventory[0] || {}).map((key) => (
-                            <th key={key}>{key}</th>
+                            <th key={key}onClick={() => handleSort(key)} style={{ cursor: 'pointer' }}>
+                                {key}
+                                {sortConfig.key === key && (sortConfig.direction === 'asc' ? ' ▼' : ' ▲')}
+                            </th>
                         ))}
                         {['admin', 'manager', 'technician'].includes(role) && ( <th className="sticky_column"></th> )}
                         </tr>
                     </thead>
                     <tbody>
-                        {inventory.map((item) => (
+                        {sortedInventory.map((item) => (
                         <tr key={item.Id}>
                             {Object.keys(item).map((key) => (
                                 <td key={key}>
