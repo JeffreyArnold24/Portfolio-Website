@@ -31,7 +31,6 @@ class InventoryDataController < ApplicationController
     # returns an error message if the item could not be created
     def create
         item = Inventory.new(inventory_params)
-        puts Time.now.strftime("%Y-%m-%d %H:%M:%S")
         item.Last_Update = Time.now.strftime("%Y-%m-%d %H:%M:%S")
         item.Created_Date = Time.now.strftime("%Y-%m-%d %H:%M:%S")
         begin
@@ -61,7 +60,7 @@ class InventoryDataController < ApplicationController
         if item.nil?
             render json: { error: "Item not found" }, status: :not_found
         elsif item.update(inventory_params)
-            item.Last_Update = Time.now
+            item.Last_Update = Time.now.strftime("%Y-%m-%d %H:%M:%S")
             item.save
             render json: item, status: :ok
         else
