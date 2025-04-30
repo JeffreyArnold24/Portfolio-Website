@@ -1,0 +1,155 @@
+  .inventory_main_container {
+    background-color: rgba(240, 248, 255, 0.445);
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    padding: 20px;
+    width: 80%;
+    border-radius: 10px;
+    margin: 0 auto; 
+    margin-bottom: 1rem;
+  }
+
+  .role-department-selectors {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .inventory_table_wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 1rem;
+    border-radius: 10px;
+  }
+
+  .inventory_table {
+    width: 100%;
+    min-width: 80%;
+    border-collapse: collapse;
+    background-color: #ffffffd0;
+    
+  }
+  
+  .inventory_table th,
+  .inventory_table td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: left;
+    height: 40px;
+  }
+  
+  .inventory_table th {
+    background-color: #f4f4f4d8;
+    font-weight: bold;
+  }
+  
+  .inventory_table tr:nth-child(even) {
+    background-color: #f9f9f9b6;
+  }
+
+  .sticky_column {
+    position: sticky;
+    right: 0;
+    background-color: white;
+    z-index: 1;
+    padding: 0.75rem;
+    vertical-align: middle;
+  }
+
+  
+
+  th.sticky_column {
+    background-color: white;
+    z-index: 1;
+  }
+
+  .button_wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .sticky_column button {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .InventoryItemsListTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  .InventoryItemsListTitle h2 {
+    font-size: 35px;
+    padding-top: 10px;
+  }
+
+  .InventoryItemsListTitle input {
+    position: absolute;
+    right: 0;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .pagination-page-selection {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .pagination-page-selection button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .pagination-page-selection button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+
+  .pagination-page-selection span {
+    font-weight: 500;
+  }
+
+  .pagination-items-per-page-selector label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .pagination-items-per-page-selector select {
+    padding: 0.2rem 0.3rem;
+    font-size: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }

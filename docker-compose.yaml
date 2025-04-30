@@ -10,6 +10,7 @@ services:
     depends_on:
       - springboot-app
       - flask-app
+      - rails-app
 
   springboot-app:
     build:
@@ -36,6 +37,19 @@ services:
     volumes:
       - sqlite-db:/app/sqlite_database
 
+  rails-app:
+    build:
+      context: .
+      dockerfile: Docker/railsDocker/Dockerfile
+    ports:
+      - "8083:8083"
+    networks:
+      - app-network
+    volumes:
+      - sqlite-db:/app/sqlite_database
+
+
+
   db-init:
     build:
       context: .
@@ -45,6 +59,7 @@ services:
     depends_on:
       - springboot-app
       - flask-app
+      - rails-app
 
 networks:
   app-network:

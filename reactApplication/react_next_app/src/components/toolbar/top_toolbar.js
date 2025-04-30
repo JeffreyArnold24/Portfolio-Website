@@ -30,6 +30,7 @@ export default function Toolbar() {
     { name: 'Home', path: '/welcome_page' },
     { name: 'About', path: '/about_page'},
     { name: 'Games', path: '/games_page' },
+    { name: 'Inventory', path: '/inventory_page' },
   ];
 
   return (

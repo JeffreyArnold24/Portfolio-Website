@@ -36,7 +36,7 @@ const start_hangman = async(numberCharacters) => {
 
 const guess_letter = async(letter) => {
   const username = localStorage.getItem('username')
-  const authToken = localStorage.getItem('authToken')
+  const authToken = localStorage.getItem('auth_token')
   const guessedLetter = letter
   var url = process.env.NEXT_PUBLIC_URL
   var port = process.env.NEXT_PUBLIC_HANGMAN_PORT
