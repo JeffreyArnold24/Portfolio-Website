@@ -29,6 +29,7 @@ export default function Inventory() {
   ]);
 
   const [sortConfig, setSortConfig] = useState({ key: 'Id', direction: 'asc' });
+  const [searchTerm, setSearchTerm] = useState('');
 
     // Fetch inventory items based on role and department
     const fetchInventory = async (role, department) => {
@@ -120,17 +121,25 @@ export default function Inventory() {
     };
 
     const sortedInventory = React.useMemo(() => {
-        if (!sortConfig.key) return inventory;
-        
-        return [...inventory].sort((a, b) => {
-            const aVal = a[sortConfig.key];
-            const bVal = b[sortConfig.key];
-        
-            if (aVal < bVal) return sortConfig.direction === 'asc' ? -1 : 1;
-            if (aVal > bVal) return sortConfig.direction === 'asc' ? 1 : -1;
-            return 0;
+        const filtered = inventory.filter((item) =>
+          Object.values(item).some((val) =>
+            String(val).toLowerCase().includes(searchTerm.toLowerCase())
+          )
+        );
+      
+        if (!sortConfig.key) return filtered;
+      
+        return [...filtered].sort((a, b) => {
+          const aVal = a[sortConfig.key];
+          const bVal = b[sortConfig.key];
+      
+          if (aVal < bVal) return sortConfig.direction === 'asc' ? -1 : 1;
+          if (aVal > bVal) return sortConfig.direction === 'asc' ? 1 : -1;
+          return 0;
         });
-    }, [inventory, sortConfig]);
+      }, [inventory, searchTerm, sortConfig]);
+
+
 
     return (
         <div className = "inventory_main_container">
@@ -212,8 +221,18 @@ export default function Inventory() {
             <button onClick={() => setShowForm(!showForm)}>
                 {showForm ? 'Cancel' : 'Add New Item'}
             </button>
+            
+            <div className = "InventoryItemsListTitle">
+                <h2>Inventory Items</h2>
 
-            <h2>Inventory Items</h2>
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
+
             <div className="inventory_table_wrapper">
                 <table className="inventory_table">
                     <thead>

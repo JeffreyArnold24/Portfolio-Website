@@ -82,7 +82,25 @@
     padding: 0;
   }
 
-  .inventory_main_container h2 {
+  .InventoryItemsListTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  .InventoryItemsListTitle h2 {
     font-size: 35px;
     padding-top: 10px;
+  }
+
+  .InventoryItemsListTitle input {
+    position: absolute;
+    right: 0;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
