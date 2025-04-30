@@ -1,13 +1,13 @@
 "use client";
 
-const get_inventory = async(role, department) => {
+const get_inventory = async(role, department, page, perPage) => {
   
   var url = process.env.NEXT_PUBLIC_URL
   var port = process.env.NEXT_PUBLIC_RAILS_PORT
   var username = localStorage.getItem('username')
   var authToken = localStorage.getItem('authToken')
 
-  const fullURL = url + port + "/inventory_data?username=" + username + "&auth_token=" + authToken + "&user_role=" + role + "&department=" + department
+  const fullURL = url + port + "/inventory_data?username=" + username + "&auth_token=" + authToken + "&user_role=" + role + "&department=" + department + "&page=" + page + "&per_page=" + perPage
   const response = await fetch(fullURL, {
     method: "GET",
   });

@@ -2,12 +2,12 @@
     background-color: rgba(240, 248, 255, 0.445);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    height: 100vh;
+    align-items: center; 
     padding: 20px;
     width: 80%;
     border-radius: 10px;
     margin: 0 auto; 
+    margin-bottom: 1rem;
   }
 
   .role-department-selectors {
@@ -103,4 +103,53 @@
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
+  }
+
+  .pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .pagination-page-selection {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .pagination-page-selection button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .pagination-page-selection button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+
+  .pagination-page-selection span {
+    font-weight: 500;
+  }
+
+  .pagination-items-per-page-selector label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .pagination-items-per-page-selector select {
+    padding: 0.2rem 0.3rem;
+    font-size: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
   }

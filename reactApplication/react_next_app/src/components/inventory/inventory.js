@@ -30,12 +30,16 @@ export default function Inventory() {
 
   const [sortConfig, setSortConfig] = useState({ key: 'Id', direction: 'asc' });
   const [searchTerm, setSearchTerm] = useState('');
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
+  const [totalPages, setTotalPages] = useState(1);
 
     // Fetch inventory items based on role and department
     const fetchInventory = async (role, department) => {
         try {
-            const items = await get_inventory(role, department)
-            setInventory(items)
+            const data = await get_inventory(role, department, page, perPage)
+            setInventory(data.items)
+            setTotalPages(data.total_pages)
         } catch (error) {
           console.error('Error fetching inventory:', error);
         }
@@ -43,7 +47,7 @@ export default function Inventory() {
     
     useEffect(() => {
         fetchInventory(role, department);
-    }, [role, department]);
+    }, [role, department, page, perPage]);
     
     // Handle input change
     const handleChange = (e) => {
@@ -221,7 +225,7 @@ export default function Inventory() {
             <button onClick={() => setShowForm(!showForm)}>
                 {showForm ? 'Cancel' : 'Add New Item'}
             </button>
-            
+
             <div className = "InventoryItemsListTitle">
                 <h2>Inventory Items</h2>
 
@@ -302,6 +306,35 @@ export default function Inventory() {
                         ))}
                     </tbody>
                 </table>
+            </div>
+
+            <div className="pagination-controls">
+                <div className="pagination-page-selection">
+                    <button onClick={() => setPage((p) => Math.max(p - 1, 1))} disabled={page === 1}>
+                        Previous
+                    </button>
+                    <span>Page {page} of {totalPages}</span>
+                    <button onClick={() => setPage((p) => Math.min(p + 1, totalPages))} disabled={page === totalPages}>
+                        Next
+                    </button>
+                </div>
+                <div className='pagination-items-per-page-selector'>
+                    <label>
+                    Items per page:{" "}
+                        <select
+                            value={perPage}
+                            onChange={(e) => {
+                            setPerPage(Number(e.target.value));
+                            setPage(1);
+                            }}
+                        >
+                            <option value={5}>5</option>
+                            <option value={10}>10</option>
+                            <option value={25}>25</option>
+                            <option value={50}>50</option>
+                        </select>
+                    </label>
+                </div>
             </div>
         </div>
     );

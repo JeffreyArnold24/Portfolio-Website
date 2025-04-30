@@ -11,6 +11,10 @@ class InventoryDataController < ApplicationController
     def index
         username = params[:username]
         role = params[:user_role]
+
+        page = params[:page] || 1
+        per_page = params[:per_page] || 10
+
         if role == 'admin' || role == 'auditor'
             items = Inventory.all
         elsif role == 'technician' || role == 'manager'
@@ -21,7 +25,15 @@ class InventoryDataController < ApplicationController
         else
             render json: { error: 'Unauthorized role' }, status: :unauthorized and return
         end
-        render json: items, status: :ok
+
+        paginated = items.page(page).per(per_page)
+
+        render json: {
+            items: paginated,
+            current_page: paginated.current_page,
+            total_pages: paginated.total_pages,
+            total_count: paginated.total_count
+        }, status: :ok
     end
 
     # Creates an entry in the inventory table based on the
