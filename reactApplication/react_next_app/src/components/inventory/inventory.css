@@ -17,6 +17,19 @@
     padding: 10px;
   }
 
+  .show_add_item_form_button {
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  .show_add_item_form_button:disabled {
+    background-color: #aaa !important;
+    cursor: not-allowed;
+  }
+
   .inventory_table_wrapper {
     width: 100%;
     overflow-x: auto;

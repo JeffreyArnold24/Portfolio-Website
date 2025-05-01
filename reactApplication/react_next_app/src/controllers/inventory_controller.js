@@ -7,6 +7,12 @@ const get_inventory = async(role, department, page, perPage) => {
   var username = localStorage.getItem('username')
   var authToken = localStorage.getItem('authToken')
 
+  // Check if user is logged in
+  if (!username || !authToken) {
+    console.warn("User not logged in — skipping inventory fetch.");
+    return [];
+  }
+
   const fullURL = url + port + "/inventory_data?username=" + username + "&auth_token=" + authToken + "&user_role=" + role + "&department=" + department + "&page=" + page + "&per_page=" + perPage
   const response = await fetch(fullURL, {
     method: "GET",
