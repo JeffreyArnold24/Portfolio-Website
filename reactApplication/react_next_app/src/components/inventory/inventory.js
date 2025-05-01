@@ -39,7 +39,9 @@ export default function Inventory() {
         try {
             const data = await get_inventory(role, department, page, perPage)
             setInventory(data.items)
-            setTotalPages(data.total_pages)
+            if (data.totalPages){
+                setTotalPages(data.total_pages)
+            }
         } catch (error) {
           console.error('Error fetching inventory:', error);
         }
@@ -125,6 +127,7 @@ export default function Inventory() {
     };
 
     const sortedInventory = React.useMemo(() => {
+        if (!inventory) return [];
         const filtered = inventory.filter((item) =>
           Object.values(item).some((val) =>
             String(val).toLowerCase().includes(searchTerm.toLowerCase())
@@ -222,7 +225,7 @@ export default function Inventory() {
                 </div>
             )}
 
-            <button onClick={() => setShowForm(!showForm)}>
+            <button onClick={() => setShowForm(!showForm)} className="show_add_item_form_button" disabled={!inventory || inventory.length === 0}>
                 {showForm ? 'Cancel' : 'Add New Item'}
             </button>
 
@@ -241,12 +244,15 @@ export default function Inventory() {
                 <table className="inventory_table">
                     <thead>
                         <tr>
-                        {Object.keys(inventory[0] || {}).map((key) => (
+                        {(inventory && inventory.length > 0) ? (
+                            Object.keys(inventory[0] || {}).map((key) => (
                             <th key={key}onClick={() => handleSort(key)} style={{ cursor: 'pointer' }}>
                                 {key}
                                 {sortConfig.key === key && (sortConfig.direction === 'asc' ? ' ▼' : ' ▲')}
                             </th>
-                        ))}
+                        ))) : (
+                            <th colSpan="100%">Please Log In to See the Inventory</th>
+                          )}
                         {['admin', 'manager', 'technician'].includes(role) && ( <th className="sticky_column"></th> )}
                         </tr>
                     </thead>
