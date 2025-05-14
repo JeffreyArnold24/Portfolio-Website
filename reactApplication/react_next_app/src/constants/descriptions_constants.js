@@ -42,4 +42,14 @@ export const componentDescriptions = {
                 The third filter simply picks a key.
                 When there is only one key remaining, the keys and the words with that key are discarded.
                 This happends for each letter that is guessed until there is only one word that can be guessed and all of the letters of that word are guessed.`,
+
+    inventory:  `Function: Demonstrate database management including creating, updating, and deleting as well as user-based permissions.\n
+                Server Type: Ruby on Rails\n
+                Skills Demonstrated: User-based permissions, database management, pagination, data organization.\n
+                Roles:
+                Admin - Access to read and write privileges for everything.
+                Auditor - Access to read privileges for everything.
+                Manager - Access to read and write privileges for everything in a given department.
+                Technician - Access to read and write privileges for everything in a given department except for deletion.
+                Employee - Access to read privileges for all assets assigned to them.`,
 }

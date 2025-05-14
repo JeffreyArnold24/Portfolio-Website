@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { get_inventory, submit_new_inventory_item, update_inventory_item, delete_inventory_item } from "@/controllers/inventory_controller";
 import { FaEdit, FaSave, FaTimes, FaTrash } from 'react-icons/fa';
 import styles from './inventory.css'
+import Accordion from '../accordion/accordion';
+import { componentDescriptions } from '@/constants/descriptions_constants';
+
 
 export default function Inventory() {
   const [inventory, setInventory] = useState([]);
@@ -20,6 +23,8 @@ export default function Inventory() {
   const [editingId, setEditingId] = useState(null);
   const [editedItem, setEditedItem] = useState({});
 
+  const description = componentDescriptions.inventory
+
   const [departments, setDepartments] = useState([
     'Operations',
     'Accounting',
@@ -33,19 +38,28 @@ export default function Inventory() {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
 
     // Fetch inventory items based on role and department
     const fetchInventory = async (role, department) => {
         try {
             const data = await get_inventory(role, department, page, perPage)
             setInventory(data.items)
-            if (data.totalPages){
+            if (data.total_pages){
                 setTotalPages(data.total_pages)
             }
         } catch (error) {
           console.error('Error fetching inventory:', error);
         }
     };
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+          const hasUser = localStorage.getItem('username') !== null;
+          const hasToken = localStorage.getItem('authToken') !== null;
+          setUserLoggedIn(hasUser && hasToken);
+        }
+      }, []);
     
     useEffect(() => {
         fetchInventory(role, department);
@@ -151,6 +165,9 @@ export default function Inventory() {
     return (
         <div className = "inventory_main_container">
             <h1>Inventory Management</h1>
+            <div className ="inventoryDescription">
+                <Accordion title = "Description" description = {description} />
+            </div>
 
             <div className= "role-department-selectors">
                 <div className="user_role_selector">
@@ -213,7 +230,7 @@ export default function Inventory() {
                         />
                         ))}
                         <button type="submit" className="add_item_button">
-                        Add Inventory Item
+                            Add Inventory Item
                         </button>
                     </form>
 
@@ -225,7 +242,7 @@ export default function Inventory() {
                 </div>
             )}
 
-            <button onClick={() => setShowForm(!showForm)} className="show_add_item_form_button" disabled={!inventory || inventory.length === 0}>
+            <button onClick={() => setShowForm(!showForm)} className="show_add_item_form_button" disabled={!userLoggedIn}>
                 {showForm ? 'Cancel' : 'Add New Item'}
             </button>
 
@@ -244,7 +261,7 @@ export default function Inventory() {
                 <table className="inventory_table">
                     <thead>
                         <tr>
-                        {(inventory && inventory.length > 0) ? (
+                        {(userLoggedIn) ? (
                             Object.keys(inventory[0] || {}).map((key) => (
                             <th key={key}onClick={() => handleSort(key)} style={{ cursor: 'pointer' }}>
                                 {key}
@@ -299,10 +316,12 @@ export default function Inventory() {
                                         ) : (
                                         <>
                                             <button onClick={() => handleEditClick(item)}><FaEdit /></button>
+                                            {['admin', 'manager'].includes(role) && (
                                             <button onClick={() =>     {const confirmed = window.confirm("Are you sure you want to delete this item?");
                                                                         if (confirmed) {
                                                                         handleDelete(item.Id);}
                                                                         }}><FaTrash /></button>
+                                            )}
                                         </>
                                         )}
                                     </div>

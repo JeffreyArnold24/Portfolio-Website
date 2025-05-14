@@ -10,6 +10,10 @@
     margin-bottom: 1rem;
   }
 
+  .inventory_description {
+    width: 90%;
+  }
+
   .role-department-selectors {
     display: flex;
     gap: 1rem;

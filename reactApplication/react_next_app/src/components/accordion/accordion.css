@@ -33,6 +33,6 @@
     padding: 15px;
     box-sizing: border-box; /* Include padding in width calculation */
     line-height: 1.4;
-    width: 80vw;
+    width: 100%;
     margin: auto;
 }

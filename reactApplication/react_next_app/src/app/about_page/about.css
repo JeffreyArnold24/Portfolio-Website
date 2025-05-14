@@ -1,5 +1,5 @@
 .about-me-section {
-  background-color: rgba(201, 201, 201, 0.75);
+  background-color: rgba(240, 248, 255, 0.445);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,7 +7,7 @@
   max-width: 80%;
   margin: 0 auto;
   margin-top: 100px;
-  
+  border-radius: 10px;
 } 
 
 .about-me-image img {
@@ -33,9 +33,9 @@
 }
 
 .about-site-section {
-  background-color: rgba(201, 201, 201, 0.75);
+  background-color: rgba(240, 248, 255, 0.445);
   display: flex;
-  flex-direction: column; /* Stack items vertically */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -43,6 +43,7 @@
   margin: 0 auto;
   margin-top: 70px;
   margin-bottom: 30px;
+  border-radius: 10px;
 } 
 
 .about-site-section h1 {
