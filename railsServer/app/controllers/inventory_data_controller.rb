@@ -16,7 +16,7 @@ class InventoryDataController < ApplicationController
         per_page = params[:per_page] || 10
 
         if role == 'admin' || role == 'auditor'
-            items = Inventory.all
+            items = Inventory
         elsif role == 'technician' || role == 'manager'
             department = params[:department]
             items = Inventory.where(Department: department)
