@@ -242,9 +242,11 @@ export default function Inventory() {
                 </div>
             )}
 
-            <button onClick={() => setShowForm(!showForm)} className="show_add_item_form_button" disabled={!userLoggedIn}>
-                {showForm ? 'Cancel' : 'Add New Item'}
-            </button>
+            {['admin', 'manager', 'technician'].includes(role) && (
+                <button onClick={() => setShowForm(!showForm)} className="show_add_item_form_button" disabled={!userLoggedIn}>
+                    {showForm ? 'Cancel' : 'Add New Item'}
+                </button>
+            )}
 
             <div className = "InventoryItemsListTitle">
                 <h2>Inventory Items</h2>
